@@ -24,7 +24,7 @@ TaskRunna is a lightweight, modular job orchestration framework designed for asy
 Clone and run the working Prometheus metrics example:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/thisKK/taskrunna-framework.git
 cd taskrunna-framework
 ./gradlew :taskrunna-examples:run
 
@@ -34,17 +34,34 @@ cd taskrunna-framework
 
 ### Installation
 
-> **Note**: TaskRunna is currently in development. To use it in your project, build from source:
+Add TaskRunna to your Gradle build:
 
-```bash
-git clone <your-repo-url>
-cd taskrunna-framework
-./gradlew publishToMavenLocal
+```kotlin
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/thisKK/taskrunna-framework")
+        credentials {
+            username = "your-github-username"
+            password = "your-github-token" // Personal access token with read:packages
+        }
+    }
+}
 
-# Then in your project:
 dependencies {
     implementation("com.taskrunna:taskrunna-batch:1.0.0")
 }
+```
+
+> **Note**: GitHub Packages requires authentication. Create a [Personal Access Token](https://github.com/settings/tokens) with `read:packages` permission.
+
+#### Development Installation
+
+For development or local testing, build from source:
+
+```bash
+git clone https://github.com/thisKK/taskrunna-framework.git
+cd taskrunna-framework
+./gradlew publishToMavenLocal
 ```
 
 ### Basic Usage
