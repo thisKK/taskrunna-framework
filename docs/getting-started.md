@@ -9,7 +9,9 @@ description: Step-by-step guide to building your first TaskRunna batch processor
   <p>Build your first async batch processor in minutes</p>
 </div>
 
+<div class="intro-text">
 Welcome to TaskRunna! This guide will walk you through creating your first batch processing application using TaskRunna Framework.
+</div>
 
 ## 📋 Prerequisites
 
