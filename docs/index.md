@@ -25,13 +25,13 @@ description: Lightweight, single-package job orchestration framework for asynchr
     <div class="feature-item">
       <span class="feature-emoji">🎯</span>
       <strong>Single Dependency</strong>
-      <p>Just `com.taskrunna:taskrunna` - no complex module management needed</p>
+      <p>Just <code>com.taskrunna:taskrunna</code> - no complex module management needed</p>
     </div>
     
     <div class="feature-item">
       <span class="feature-emoji">🚀</span>
       <strong>Async by Design</strong>
-      <p>`ListenableFuture`/`CompletableFuture` with non-blocking execution</p>
+      <p><code>ListenableFuture</code>/<code>CompletableFuture</code> with non-blocking execution</p>
     </div>
     
     <div class="feature-item">
@@ -98,8 +98,8 @@ processor.run() // Processes all orders asynchronously!</code></pre>
   <div class="version-highlight">
     <h2>🆕 v1.1.0 - Major Simplification!</h2>
     <p><strong>Consolidated from 2 packages into 1</strong> for much simpler usage:</p>
-    <p>✅ <strong>Before:</strong> `taskrunna-core` + `taskrunna-batch` (complex)</p>
-    <p>✅ <strong>Now:</strong> Just `taskrunna` (simple!)</p>
+    <p>✅ <strong>Before:</strong> <code>taskrunna-core</code> + <code>taskrunna-batch</code> (complex)</p>
+    <p>✅ <strong>Now:</strong> Just <code>taskrunna</code> (simple!)</p>
     <p>🎯 <strong>One import, everything included</strong></p>
   </div>
 
