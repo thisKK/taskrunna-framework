@@ -1,7 +1,7 @@
 # TaskRunna Framework 🏃‍♂️
 
 [![GitHub release](https://img.shields.io/github/v/release/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/releases)
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.20-7F52FF.svg?logo=kotlin)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.2.0-7F52FF.svg?logo=kotlin)](https://kotlinlang.org)
 [![JVM](https://img.shields.io/badge/JVM-17+-orange.svg)](https://openjdk.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/stargazers)
@@ -18,10 +18,23 @@ A **lightweight, single-package** job orchestration framework for asynchronous t
 - 🛠️ **Plug & Play** - Minimal setup, maximum functionality
 - ⚡ **High Performance** - Multi-threaded execution without blocking main pools
 
-## 🆕 v1.1.0 - Simplified!
+## 🆕 v1.1.2 - Performance & Future-Ready!
 
-**Major improvement**: Consolidated from 2 packages into 1 for much simpler usage!
+**Major dependency updates with significant performance improvements!**
 
+### 🚀 Performance Enhancements
+- ✅ **Kotlin 2.2.0** with K2 compiler - **Up to 2x faster compilation!**
+- ✅ **Latest Micrometer 1.14.2** - Enhanced observability and metrics
+- ✅ **Ktor 3.1.0** - Major version upgrade with better performance
+- ✅ **Latest Guava 33.4.8** - Performance improvements and stability
+
+### 🔧 Build & Quality Improvements  
+- ✅ **ktlint 12.1.1** - Latest code style enforcement
+- ✅ **Dokka V2** - Future-ready documentation generation
+- ✅ **All dependencies** updated to latest stable versions
+- ✅ **1.8x faster** code highlighting and completion in IDE
+
+**Architecture**: Single package design for simplicity
 - ✅ **Before**: `taskrunna-core` + `taskrunna-batch` (complex)
 - ✅ **Now**: Just `taskrunna` (simple!)
 - 🎯 **One import, everything included**
@@ -69,7 +82,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.taskrunna:taskrunna:1.1.0") // Everything included!
+    implementation("com.taskrunna:taskrunna:1.1.2") // Everything included!
 }
 ```
 
@@ -85,7 +98,7 @@ cd taskrunna-framework
 
 # Then use in your project:
 dependencies {
-    implementation("com.taskrunna:taskrunna:1.1.0")
+    implementation("com.taskrunna:taskrunna:1.1.2")
 }
 ```
 </details>
@@ -199,7 +212,7 @@ taskrunna-framework/
     └── PrometheusMetricsExample  #   🚀  Production-ready example
 ```
 
-**v1.1.0 Benefits**: Single import, everything works together seamlessly!
+**v1.1.2 Benefits**: Single import, everything works together seamlessly!
 
 ## 🔧 Development
 
@@ -260,7 +273,7 @@ Your support helps maintain and improve TaskRunna for the entire community! 🙏
 
 ---
 
-**TaskRunna v1.1.0** - One package, endless possibilities! 🚀
+**TaskRunna v1.1.2** - One package, endless possibilities! 🚀
 
 [![GitHub](https://img.shields.io/badge/GitHub-thisKK%2Ftaskrunna--framework-blue?logo=github)](https://github.com/thisKK/taskrunna-framework)
-[![Packages](https://img.shields.io/badge/Packages-GitHub-green?logo=github)](https://github.com/thisKK/taskrunna-framework/packages) 
+[![Packages](https://img.shields.io/badge/Packages-GitHub-green?logo=github)](https://github.com/thisKK/taskrunna-framework/packages)
