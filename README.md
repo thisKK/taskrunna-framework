@@ -1,9 +1,11 @@
 # TaskRunna Framework 🏃‍♂️
 
+[![GitHub release](https://img.shields.io/github/v/release/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/releases)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.9.20-7F52FF.svg?logo=kotlin)](https://kotlinlang.org)
 [![JVM](https://img.shields.io/badge/JVM-17+-orange.svg)](https://openjdk.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Gradle](https://img.shields.io/badge/Gradle-8.4+-02303A.svg?logo=gradle)](https://gradle.org)
+[![GitHub stars](https://img.shields.io/github/stars/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/issues)
 
 A **lightweight, single-package** job orchestration framework for asynchronous task execution in microservices. Process batches efficiently with built-in **Prometheus metrics**, error handling, and pagination support.
 
