@@ -50,20 +50,20 @@ TaskRunna automatically collects these metrics:
 
 | Metric Name | Type | Description | Tags |
 |-------------|------|-------------|------|
-| `{prefix}_jobs_started_total` | Counter | Total batch jobs started | `job_name` |
-| `{prefix}_jobs_completed_total` | Counter | Total batch jobs completed | `job_name`, `result` |
-| `{prefix}_job_duration_seconds` | Timer | Time taken for complete jobs | `job_name`, `result` |
-| `{prefix}_tasks_submitted_total` | Counter | Total tasks submitted | `job_name` |
-| `{prefix}_tasks_completed_total` | Counter | Total tasks completed | `job_name`, `result`, `error_type` |
-| `{prefix}_task_duration_seconds` | Timer | Time taken for individual tasks | `job_name`, `result` |
-| `{prefix}_batches_processed_total` | Counter | Total batches processed | `job_name` |
-| `{prefix}_items_processed_total` | Counter | Total items processed | `job_name` |
+| <code>{prefix}_jobs_started_total</code> | Counter | Total batch jobs started | <code>job_name</code> |
+| <code>{prefix}_jobs_completed_total</code> | Counter | Total batch jobs completed | <code>job_name</code>, <code>result</code> |
+| <code>{prefix}_job_duration_seconds</code> | Timer | Time taken for complete jobs | <code>job_name</code>, <code>result</code> |
+| <code>{prefix}_tasks_submitted_total</code> | Counter | Total tasks submitted | <code>job_name</code> |
+| <code>{prefix}_tasks_completed_total</code> | Counter | Total tasks completed | <code>job_name</code>, <code>result</code>, <code>error_type</code> |
+| <code>{prefix}_task_duration_seconds</code> | Timer | Time taken for individual tasks | <code>job_name</code>, <code>result</code> |
+| <code>{prefix}_batches_processed_total</code> | Counter | Total batches processed | <code>job_name</code> |
+| <code>{prefix}_items_processed_total</code> | Counter | Total items processed | <code>job_name</code> |
 
 ### Metric Tags
 
-- **`job_name`**: The name you assign to your batch job
-- **`result`**: `success` or `failure`
-- **`error_type`**: The exception class name for failed tasks
+- **<code>job_name</code>**: The name you assign to your batch job
+- **<code>result</code>**: <code>success</code> or <code>failure</code>
+- **<code>error_type</code>**: The exception class name for failed tasks
 
 ### Example Metrics Output
 

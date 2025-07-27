@@ -30,17 +30,17 @@ class BatchJobProcessor<T>(
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `iterator` | `BaseBatchIterator<T>` | Iterator that loads data in batches |
-| `submitJob` | `(T) -> ListenableFuture<*>` | Function that processes each item asynchronously |
-| `onSuccess` | `(T, Any) -> Unit` | Callback invoked when an item is processed successfully |
-| `onFailure` | `(T, Throwable) -> Unit` | Callback invoked when an item fails to process |
-| `logger` | `KLogger` | Logger instance for job execution logging |
-| `metrics` | `BatchMetrics` | Metrics collector (optional, defaults to no-op) |
-| `jobName` | `String` | Name for the job (used in logging and metrics) |
+| <code>iterator</code> | <code>BaseBatchIterator&lt;T&gt;</code> | Iterator that loads data in batches |
+| <code>submitJob</code> | <code>(T) -&gt; ListenableFuture&lt;*&gt;</code> | Function that processes each item asynchronously |
+| <code>onSuccess</code> | <code>(T, Any) -&gt; Unit</code> | Callback invoked when an item is processed successfully |
+| <code>onFailure</code> | <code>(T, Throwable) -&gt; Unit</code> | Callback invoked when an item fails to process |
+| <code>logger</code> | <code>KLogger</code> | Logger instance for job execution logging |
+| <code>metrics</code> | <code>BatchMetrics</code> | Metrics collector (optional, defaults to no-op) |
+| <code>jobName</code> | <code>String</code> | Name for the job (used in logging and metrics) |
 
 #### Methods
 
-##### `run(): Unit`
+##### <code>run(): Unit</code>
 
 Executes the batch job, processing all available items.
 
@@ -86,13 +86,13 @@ abstract class BaseBatchIterator<T> {
 
 #### Abstract Methods
 
-##### `loadNextBatch(afterCursor: String, batchSize: Int): List<T>`
+##### <code>loadNextBatch(afterCursor: String, batchSize: Int): List&lt;T&gt;</code>
 
 Loads the next batch of items for processing.
 
 **Parameters:**
-- `afterCursor`: Cursor indicating where to start loading (empty string for first batch)
-- `batchSize`: Maximum number of items to load
+- <code>afterCursor</code>: Cursor indicating where to start loading (empty string for first batch)
+- <code>batchSize</code>: Maximum number of items to load
 
 **Returns:** List of items to process (empty list indicates no more data)
 
@@ -106,12 +106,12 @@ override fun loadNextBatch(afterCursor: String, batchSize: Int): List<Order> {
 }
 ```
 
-##### `extractCursorFrom(item: T): String`
+##### <code>extractCursorFrom(item: T): String</code>
 
 Extracts a cursor value from an item for pagination.
 
 **Parameters:**
-- `item`: The item to extract cursor from
+- <code>item</code>: The item to extract cursor from
 
 **Returns:** String cursor value (typically an ID or timestamp)
 
@@ -122,7 +122,7 @@ override fun extractCursorFrom(item: Order): String = item.id
 
 #### Properties
 
-##### `defaultBatchSize: Int`
+##### <code>defaultBatchSize: Int</code>
 
 Default batch size when not specified. Override to customize.
 
@@ -147,16 +147,16 @@ class BatchJobStats(
 
 | Property | Type | Description |
 |----------|------|-------------|
-| `tasksSubmitted` | `AtomicInteger` | Number of tasks submitted for processing |
-| `tasksCompleted` | `AtomicInteger` | Number of tasks completed (success + failure) |
-| `tasksSucceeded` | `AtomicInteger` | Number of tasks that completed successfully |
-| `tasksFailed` | `AtomicInteger` | Number of tasks that failed |
-| `startTime` | `Instant` | When the job started |
-| `endTime` | `Instant?` | When the job completed (null if still running) |
+| <code>tasksSubmitted</code> | <code>AtomicInteger</code> | Number of tasks submitted for processing |
+| <code>tasksCompleted</code> | <code>AtomicInteger</code> | Number of tasks completed (success + failure) |
+| <code>tasksSucceeded</code> | <code>AtomicInteger</code> | Number of tasks that completed successfully |
+| <code>tasksFailed</code> | <code>AtomicInteger</code> | Number of tasks that failed |
+| <code>startTime</code> | <code>Instant</code> | When the job started |
+| <code>endTime</code> | <code>Instant?</code> | When the job completed (null if still running) |
 
 #### Methods
 
-##### `reportStats(): String`
+##### <code>reportStats(): String</code>
 
 Returns a formatted string with current statistics.
 
@@ -233,7 +233,7 @@ object PrometheusConfig {
 
 #### Methods
 
-##### `createBatchMetrics(prefix: String): BatchMetrics`
+##### <code>createBatchMetrics(prefix: String): BatchMetrics</code>
 
 Auto-detects available dependencies and creates appropriate metrics implementation.
 
@@ -252,8 +252,8 @@ val metrics = PrometheusConfig.createBatchMetrics("order_processor")
 BatchJobProcessor uses an internal thread pool for async execution. The pool is automatically sized based on available processors.
 
 **Default Configuration:**
-- Core pool size: `Runtime.getRuntime().availableProcessors()`
-- Maximum pool size: `Runtime.getRuntime().availableProcessors() * 2`
+- Core pool size: <code>Runtime.getRuntime().availableProcessors()</code>
+- Maximum pool size: <code>Runtime.getRuntime().availableProcessors() * 2</code>
 - Keep alive time: 60 seconds
 - Queue: Unbounded LinkedBlockingQueue
 

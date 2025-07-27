@@ -57,7 +57,7 @@ Welcome to TaskRunna! This guide will walk you through creating your first batch
   </dependencies>
   ```
   
-  > 🔐 **Authentication Required**: GitHub Packages needs a [Personal Access Token](https://github.com/settings/tokens) with `read:packages` permission.
+  > 🔐 **Authentication Required**: GitHub Packages needs a [Personal Access Token](https://github.com/settings/tokens) with <code>read:packages</code> permission.
 </div>
 
 ## 🎯 Your First Batch Processor
@@ -254,19 +254,19 @@ class OrderProcessorTest {
 ```
 Could not resolve com.taskrunna:taskrunna:1.1.0
 ```
-**Solution:** Ensure your GitHub token has `read:packages` permission and is correctly configured.
+**Solution:** Ensure your GitHub token has <code>read:packages</code> permission and is correctly configured.
 
 **OutOfMemoryError:**
 ```
 java.lang.OutOfMemoryError: GC overhead limit exceeded
 ```
-**Solution:** Reduce `batchSize` or increase JVM heap space with `-Xmx2g`.
+**Solution:** Reduce <code>batchSize</code> or increase JVM heap space with <code>-Xmx2g</code>.
 
 **Too Many Concurrent Requests:**
 ```
 Connection pool exhausted
 ```
-**Solution:** Reduce `maxConcurrency` parameter.
+**Solution:** Reduce <code>maxConcurrency</code> parameter.
 
 ### Getting Help
 
