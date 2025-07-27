@@ -64,19 +64,19 @@ description: Lightweight, single-package job orchestration framework for asynchr
     
     <h3>Installation</h3>
 
-```kotlin
-dependencies {
+<div class="highlight">
+<pre><code class="language-kotlin">dependencies {
     implementation("com.taskrunna:taskrunna:1.1.0")
-}
-```
+}</code></pre>
+</div>
     
     <h3>Basic Usage</h3>
 
-```kotlin
-import com.taskrunna.batch.*
+<div class="highlight">
+<pre><code class="language-kotlin">import com.taskrunna.batch.*
 
 // 1. Define your data iterator
-class OrderIterator : BaseBatchIterator<Order>() {
+class OrderIterator : BaseBatchIterator&lt;Order&gt;() {
     override fun loadNextBatch(cursor: String, size: Int) = 
         orderRepository.findPendingOrders(cursor, size)
     
@@ -86,13 +86,13 @@ class OrderIterator : BaseBatchIterator<Order>() {
 // 2. Process with async jobs
 val processor = BatchJobProcessor(
     iterator = OrderIterator(),
-    submitJob = { order -> sendToKafka(order) },
-    onSuccess = { order, result -> markProcessed(order.id) },
-    onFailure = { order, error -> handleError(order, error) }
+    submitJob = { order -&gt; sendToKafka(order) },
+    onSuccess = { order, result -&gt; markProcessed(order.id) },
+    onFailure = { order, error -&gt; handleError(order, error) }
 )
 
-processor.run() // Processes all orders asynchronously!
-```
+processor.run() // Processes all orders asynchronously!</code></pre>
+</div>
   </div>
 
   <div class="version-highlight">
