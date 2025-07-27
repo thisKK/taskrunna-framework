@@ -4,22 +4,16 @@ title: Metrics & Monitoring
 permalink: /metrics/
 ---
 
-<div class="hero">
-  <h1>📊 Metrics & Monitoring</h1>
-  <p>Comprehensive Prometheus metrics for production observability</p>
-</div>
+# 📊 Metrics & Monitoring
 
-<div class="wrapper">
-  <div class="intro-text">
-    TaskRunna provides comprehensive Prometheus metrics out of the box for production observability, enabling you to monitor batch job performance, track processing metrics, and set up alerting.
-  </div>
+TaskRunna provides comprehensive Prometheus metrics out of the box for production observability.
 
 ## 🚀 Quick Start
 
 ### Enable Metrics
 
-<div class="highlight">
-<pre><code class="language-kotlin">import com.taskrunna.batch.metrics.PrometheusConfig
+```kotlin
+import com.taskrunna.batch.metrics.PrometheusConfig
 
 // Create metrics instance
 val metrics = PrometheusConfig.createBatchMetrics("order_processor")
@@ -30,13 +24,13 @@ val processor = BatchJobProcessor(
     submitJob = ::processOrder,
     metrics = metrics,  // Enable metrics!
     jobName = "order_processing"
-)</code></pre>
-</div>
+)
+```
 
 ### Expose Metrics Endpoint
 
-<div class="highlight">
-<pre><code class="language-kotlin">import io.ktor.server.application.*
+```kotlin
+import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.micrometer.prometheus.PrometheusMeterRegistry
@@ -47,8 +41,8 @@ fun Application.configureRouting(registry: PrometheusMeterRegistry) {
             call.respondText(registry.scrape(), ContentType.Text.Plain)
         }
     }
-}</code></pre>
-</div>
+}
+```
 
 ## 📈 Available Metrics
 
@@ -418,5 +412,4 @@ class CustomMetricsCollector(private val meterRegistry: MeterRegistry) {
 }
 ```
 
-Want to see metrics in action? [Run the live example](../examples#live-example-order-retry-system)!
-</div> 
+Want to see metrics in action? [Run the live example](../examples#live-example-order-retry-system)! 

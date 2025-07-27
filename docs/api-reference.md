@@ -4,15 +4,9 @@ title: API Reference
 permalink: /api-reference/
 ---
 
-<div class="hero">
-  <h1>📖 API Reference</h1>
-  <p>Complete reference for all TaskRunna classes and interfaces</p>
-</div>
+# 📖 API Reference
 
-<div class="wrapper">
-  <div class="intro-text">
-    Comprehensive documentation for all TaskRunna framework components, including detailed parameter descriptions, method signatures, and usage examples.
-  </div>
+Complete reference for all TaskRunna classes and interfaces.
 
 ## Core Classes
 
@@ -20,17 +14,17 @@ permalink: /api-reference/
 
 The main entry point for batch processing jobs.
 
-<div class="highlight">
-<pre><code class="language-kotlin">class BatchJobProcessor&lt;T&gt;(
-    iterator: BaseBatchIterator&lt;T&gt;,
-    submitJob: (T) -&gt; ListenableFuture&lt;*&gt;,
-    onSuccess: (T, Any) -&gt; Unit = { _, _ -&gt; },
-    onFailure: (T, Throwable) -&gt; Unit = { _, _ -&gt; },
+```kotlin
+class BatchJobProcessor<T>(
+    iterator: BaseBatchIterator<T>,
+    submitJob: (T) -> ListenableFuture<*>,
+    onSuccess: (T, Any) -> Unit = { _, _ -> },
+    onFailure: (T, Throwable) -> Unit = { _, _ -> },
     logger: KLogger,
     metrics: BatchMetrics = NoOpBatchMetrics.INSTANCE,
     jobName: String = "batch_job"
-)</code></pre>
-</div>
+)
+```
 
 #### Parameters
 
@@ -50,9 +44,9 @@ The main entry point for batch processing jobs.
 
 Executes the batch job, processing all available items.
 
-<div class="highlight">
-<pre><code class="language-kotlin">processor.run()</code></pre>
-</div>
+```kotlin
+processor.run()
+```
 
 **Behavior:**
 - Loads data in batches using the iterator
@@ -458,5 +452,4 @@ All functionality remains the same - just import paths changed.
 
 ---
 
-Need more details? [Check the source code](https://github.com/thisKK/taskrunna-framework) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues)!
-</div> 
+Need more details? [Check the source code](https://github.com/thisKK/taskrunna-framework) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues)! 
