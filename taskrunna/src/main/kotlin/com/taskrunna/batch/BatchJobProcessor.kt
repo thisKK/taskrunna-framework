@@ -5,7 +5,6 @@ import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.taskrunna.batch.metrics.BatchMetrics
 import com.taskrunna.batch.metrics.NoOpBatchMetrics
-import com.taskrunna.core.BaseBatchIterator
 import io.github.oshai.kotlinlogging.KLogger
 import java.util.concurrent.Executors
 

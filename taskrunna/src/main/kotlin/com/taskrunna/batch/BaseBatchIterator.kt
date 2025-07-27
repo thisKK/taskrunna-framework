@@ -1,4 +1,4 @@
-package com.taskrunna.core
+package com.taskrunna.batch
 
 abstract class BaseBatchIterator<T>(
     private val batchSize: Int = 10_000,

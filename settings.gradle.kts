@@ -1,7 +1,6 @@
 rootProject.name = "taskrunna-framework"
 
 include(
-    "taskrunna-core",
-    "taskrunna-batch", 
+    "taskrunna", 
     "taskrunna-examples"
 ) 

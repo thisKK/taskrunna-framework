@@ -13,8 +13,7 @@ TaskRunna is a lightweight, modular job orchestration framework designed for asy
 
 | Module              | Description                                      |
 |---------------------|--------------------------------------------------|
-| `taskrunna-core`     | Core interfaces, common utilities               |
-| `taskrunna-batch`    | Batch job processing module                     |
+| `taskrunna`         | Complete framework with batch processing, metrics, and utilities |
 | `taskrunna-examples` | Sample use cases and integration guides         |
 
 ## 🚀 Quick Start
@@ -48,7 +47,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.taskrunna:taskrunna-batch:1.0.0")
+    implementation("com.taskrunna:taskrunna:1.1.0")
 }
 ```
 
@@ -68,7 +67,7 @@ cd taskrunna-framework
 
 ```kotlin
 import com.taskrunna.batch.BatchJobProcessor
-import com.taskrunna.core.BaseBatchIterator
+import com.taskrunna.batch.BaseBatchIterator
 
 // 1. Create your batch iterator
 class MyBatchIterator(private val repo: Repository) : BaseBatchIterator<MyItem>() {
@@ -161,9 +160,8 @@ The included `PrometheusMetricsExample` demonstrates:
 
 ```
 taskrunna-framework/
-├── taskrunna-core/          # Core interfaces and utilities
-│   └── BaseBatchIterator    # Abstract pagination iterator
-├── taskrunna-batch/         # Batch processing implementation
+├── taskrunna/               # Complete TaskRunna library
+│   ├── BaseBatchIterator    # Abstract pagination iterator
 │   ├── BatchJobProcessor    # Main processing engine
 │   ├── BatchJobStats        # Metrics and monitoring
 │   └── metrics/             # Prometheus integration

@@ -1,7 +1,5 @@
 package com.taskrunna.batch
 
-import com.taskrunna.core.BaseBatchIterator
-
 class FakeBatchIterator : BaseBatchIterator<String>() {
     private val allRecords = listOf("A", "B", "C", "D", "E")
     private var index = 0

@@ -2,7 +2,6 @@ package com.taskrunna.batch
 
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.SettableFuture
-import com.taskrunna.core.BaseBatchIterator
 import io.github.oshai.kotlinlogging.KLogger
 import io.mockk.every
 import io.mockk.mockk

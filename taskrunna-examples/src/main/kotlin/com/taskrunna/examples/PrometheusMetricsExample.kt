@@ -2,9 +2,9 @@ package com.taskrunna.examples
 
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
+import com.taskrunna.batch.BaseBatchIterator
 import com.taskrunna.batch.BatchJobProcessor
 import com.taskrunna.batch.metrics.MicrometerBatchMetrics
-import com.taskrunna.core.BaseBatchIterator
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.server.application.call
 import io.ktor.server.engine.embeddedServer

@@ -9,8 +9,7 @@ application {
 }
 
 dependencies {
-    implementation(project(":taskrunna-core"))
-    implementation(project(":taskrunna-batch"))
+    implementation(project(":taskrunna"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("com.google.guava:guava:32.1.3-jre")
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
