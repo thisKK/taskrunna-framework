@@ -14,9 +14,9 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import io.micrometer.prometheusmetrics.PrometheusConfig
 import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.CompletableFuture
 import kotlin.random.Random
-import kotlinx.coroutines.runBlocking
 
 private val logger = KotlinLogging.logger {}
 
