@@ -19,13 +19,66 @@ TaskRunna is a lightweight, modular job orchestration framework designed for asy
 
 ## 🚀 Quick Start
 
+### Installation
+
+Add TaskRunna to your Gradle build:
+
 ```kotlin
+dependencies {
+    implementation("com.taskrunna:taskrunna-batch:1.0.0")
+}
+```
+
+### Basic Usage
+
+```kotlin
+import com.taskrunna.batch.BatchJobProcessor
+import com.taskrunna.core.BaseBatchIterator
+
+// 1. Create your batch iterator
+class MyBatchIterator(private val repo: Repository) : BaseBatchIterator<MyItem>() {
+    override fun loadNextBatch(afterCursor: String, batchSize: Int) = 
+        repo.findBatch(afterCursor, batchSize)
+    
+    override fun extractCursorFrom(item: MyItem) = item.id
+}
+
+// 2. Create and run the processor
 val processor = BatchJobProcessor(
     iterator = MyBatchIterator(repo),
     submitJob = { item -> sendToKafka(item) },
     onSuccess = { item, result -> markDone(item.id) },
-    onFailure = { item, error -> log.warn("fail: ${item.id}") }
+    onFailure = { item, error -> log.warn("fail: ${item.id}") },
+    logger = logger
 )
 processor.run()
+```
 
-``` 
+## 🏗️ Project Structure
+
+```
+taskrunna-framework/
+├── taskrunna-core/          # Core interfaces and utilities
+│   └── BaseBatchIterator    # Abstract pagination iterator
+├── taskrunna-batch/         # Batch processing implementation
+│   ├── BatchJobProcessor    # Main processing engine
+│   └── BatchJobStats        # Metrics and monitoring
+└── taskrunna-examples/      # Usage examples and demos
+    └── SimpleExample        # Basic usage demonstration
+```
+
+## 🔧 Development
+
+### Quick Start with Devbox
+
+```bash
+# Install devbox and enter development environment
+curl -fsSL https://get.jetpack.io/devbox | bash
+devbox shell
+
+# Setup and build
+devbox run setup
+devbox run build
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for complete development guidelines and build instructions. 
