@@ -70,7 +70,7 @@ subprojects {
                     pom {
                         name.set("TaskRunna ${project.name.removePrefix("taskrunna-").replaceFirstChar { it.uppercase() }}")
                         description.set("TaskRunna - Lightweight, modular job orchestration framework for asynchronous task execution")
-                        url.set("https://github.com/youruser/taskrunna-framework")
+                        url.set("https://github.com/thisKK/taskrunna-framework")
                         
                         licenses {
                             license {
@@ -81,16 +81,16 @@ subprojects {
                         
                         developers {
                             developer {
-                                id.set("youruser")
-                                name.set("Your Name")
-                                email.set("your.email@example.com")
+                                id.set("thisKK")
+                                name.set("Piampoon Phoonpiam")
+                                email.set("piampoon@example.com")
                             }
                         }
                         
                         scm {
-                            connection.set("scm:git:git://github.com/youruser/taskrunna-framework.git")
-                            developerConnection.set("scm:git:ssh://github.com/youruser/taskrunna-framework.git")
-                            url.set("https://github.com/youruser/taskrunna-framework")
+                            connection.set("scm:git:git://github.com/thisKK/taskrunna-framework.git")
+                            developerConnection.set("scm:git:ssh://github.com/thisKK/taskrunna-framework.git")
+                            url.set("https://github.com/thisKK/taskrunna-framework")
                         }
                     }
                 }
@@ -100,7 +100,7 @@ subprojects {
                 // GitHub Packages
                 maven {
                     name = "GitHubPackages"
-                    url = uri("https://maven.pkg.github.com/youruser/taskrunna-framework")
+                    url = uri("https://maven.pkg.github.com/thisKK/taskrunna-framework")
                     credentials {
                         username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
                         password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
