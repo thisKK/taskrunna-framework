@@ -64,15 +64,15 @@ description: Lightweight, single-package job orchestration framework for asynchr
     
     <h3>Installation</h3>
 
-{% highlight kotlin %}
+```kotlin
 dependencies {
     implementation("com.taskrunna:taskrunna:1.1.0")
 }
-{% endhighlight %}
+```
     
     <h3>Basic Usage</h3>
 
-{% highlight kotlin %}
+```kotlin
 import com.taskrunna.batch.*
 
 // 1. Define your data iterator
@@ -92,7 +92,7 @@ val processor = BatchJobProcessor(
 )
 
 processor.run() // Processes all orders asynchronously!
-{% endhighlight %}
+```
   </div>
 
   <div class="version-highlight">

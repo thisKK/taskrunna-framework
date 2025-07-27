@@ -170,14 +170,17 @@
       font-weight: 600;
     }
 
-    /* Code blocks - Enhanced for proper Jekyll/Rouge integration */
-    .highlight {
+    /* Code blocks - Enhanced for markdown and Jekyll integration */
+    .highlight, 
+    div.highlight {
       margin: 20px 0;
       border-radius: 12px;
       overflow: hidden;
+      background: #1a202c;
     }
 
-    .highlight pre {
+    .highlight pre,
+    div.highlight pre {
       margin: 0;
       padding: 25px;
       background: #1a202c !important;
@@ -187,11 +190,12 @@
       font-size: 0.9rem;
       line-height: 1.5;
       border-radius: 12px;
+      border: none;
     }
 
     pre {
-      background: #1a202c;
-      color: #e2e8f0;
+      background: #1a202c !important;
+      color: #e2e8f0 !important;
       padding: 25px;
       border-radius: 12px;
       overflow-x: auto;
@@ -199,6 +203,7 @@
       font-size: 0.9rem;
       line-height: 1.5;
       margin: 20px 0;
+      border: none;
     }
 
     code {
@@ -212,18 +217,22 @@
 
     pre code {
       background: none !important;
-      color: inherit !important;
+      color: #e2e8f0 !important;
       padding: 0;
       border-radius: 0;
+      font-size: 0.9rem;
     }
 
-    /* Rouge syntax highlighting colors */
-    .highlight .k { color: #c678dd; } /* keyword */
-    .highlight .s { color: #98c379; } /* string */
-    .highlight .c { color: #5c6370; } /* comment */
-    .highlight .n { color: #e06c75; } /* name */
-    .highlight .o { color: #56b6c2; } /* operator */
-    .highlight .p { color: #abb2bf; } /* punctuation */
+    /* Enhanced Rouge syntax highlighting colors */
+    .highlight .k, .k { color: #c678dd !important; } /* keyword */
+    .highlight .s, .s { color: #98c379 !important; } /* string */
+    .highlight .c, .c { color: #5c6370 !important; } /* comment */
+    .highlight .n, .n { color: #e06c75 !important; } /* name */
+    .highlight .o, .o { color: #56b6c2 !important; } /* operator */
+    .highlight .p, .p { color: #abb2bf !important; } /* punctuation */
+    .highlight .nc, .nc { color: #61afef !important; } /* class name */
+    .highlight .nf, .nf { color: #61afef !important; } /* function name */
+    .highlight .kt, .kt { color: #c678dd !important; } /* keyword type */
 
     /* Documentation grid */
     .docs-grid {
