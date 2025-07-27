@@ -19,11 +19,29 @@ TaskRunna is a lightweight, modular job orchestration framework designed for asy
 
 ## 🚀 Quick Start
 
+### Try It Now
+
+Clone and run the working Prometheus metrics example:
+
+```bash
+git clone <your-repo-url>
+cd taskrunna-framework
+./gradlew :taskrunna-examples:run
+
+# Visit http://localhost:8080 for the web interface
+# Visit http://localhost:8080/metrics for Prometheus metrics
+```
+
 ### Installation
 
-Add TaskRunna to your Gradle build:
+> **Note**: TaskRunna is currently in development. To use it in your project, build from source:
 
-```kotlin
+```bash
+git clone <your-repo-url>
+cd taskrunna-framework
+./gradlew publishToMavenLocal
+
+# Then in your project:
 dependencies {
     implementation("com.taskrunna:taskrunna-batch:1.0.0")
 }
@@ -96,6 +114,32 @@ TaskRunna provides comprehensive Prometheus metrics out of the box:
 
 All metrics include relevant tags like `job_name`, `result`, and `error_type` for detailed observability.
 
+### Live Example
+
+Run the included example to see these metrics in action:
+
+```bash
+./gradlew :taskrunna-examples:run
+curl http://localhost:8080/metrics | grep order_retry
+```
+
+The example simulates an order retry system processing 50 orders with realistic success/failure patterns.
+
+### Example Features
+
+The included `PrometheusMetricsExample` demonstrates:
+
+- ✅ **HTTP Server** with metrics endpoint (Ktor-based)
+- ✅ **Realistic Batch Processing** - Order retry simulation with ~20% failure rate  
+- ✅ **Live Metrics** - Real-time Prometheus metrics collection
+- ✅ **Multi-threaded Execution** - Concurrent task processing
+- ✅ **Production Patterns** - Error handling, logging, observability
+
+**Available Endpoints:**
+- `GET /` - Example information and status
+- `GET /metrics` - Prometheus metrics (ready for scraping)
+- `GET /health` - Health check endpoint
+
 ## 🏗️ Project Structure
 
 ```
@@ -104,9 +148,10 @@ taskrunna-framework/
 │   └── BaseBatchIterator    # Abstract pagination iterator
 ├── taskrunna-batch/         # Batch processing implementation
 │   ├── BatchJobProcessor    # Main processing engine
-│   └── BatchJobStats        # Metrics and monitoring
+│   ├── BatchJobStats        # Metrics and monitoring
+│   └── metrics/             # Prometheus integration
 └── taskrunna-examples/      # Usage examples and demos
-    └── SimpleExample        # Basic usage demonstration
+    └── PrometheusMetricsExample  # Order retry system with full observability
 ```
 
 ## 🔧 Development
@@ -127,4 +172,23 @@ devbox run format  # Auto-format code
 devbox run check   # Lint + test
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for complete development guidelines and build instructions. 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for complete development guidelines and build instructions.
+
+### Example Usage
+
+```bash
+# Run the Prometheus metrics example
+./gradlew :taskrunna-examples:run
+
+# In another terminal, monitor metrics in real-time
+watch -n 1 "curl -s http://localhost:8080/metrics | grep order_retry"
+
+# Or view specific metrics
+curl http://localhost:8080/metrics | grep -E "(tasks_submitted|job_duration)"
+```
+
+## 📚 Documentation
+
+- **[METRICS.md](METRICS.md)** - Comprehensive Prometheus metrics guide
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Development setup and guidelines  
+- **[DEVBOX.md](DEVBOX.md)** - Devbox environment quick reference 
