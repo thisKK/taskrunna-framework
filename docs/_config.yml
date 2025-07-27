@@ -27,13 +27,21 @@ kramdown:
   syntax_highlighter: rouge
   input: GFM
 
+# SCSS Processing
+sass:
+  style: compressed
+  sass_dir: _sass
+
 # Include/Exclude
 include:
   - _pages
+  - assets
 exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  - node_modules
+  - vendor
 
 # SEO
 google_analytics: # Add your GA ID here if needed
@@ -46,4 +54,9 @@ defaults:
       path: ""
       type: "pages"
     values:
-      layout: "default" 
+      layout: "default"
+      
+# Minima theme customization
+minima:
+  social_links:
+    github: thisKK/taskrunna-framework 

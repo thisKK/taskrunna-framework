@@ -4,137 +4,169 @@ title: TaskRunna Framework
 description: Lightweight, single-package job orchestration framework for asynchronous task execution
 ---
 
-# TaskRunna Framework 🏃‍♂️
+<div class="hero">
+  <h1>TaskRunna Framework 🏃‍♂️</h1>
+  <p>A lightweight, single-package job orchestration framework for asynchronous task execution in microservices</p>
+</div>
 
-[![GitHub release](https://img.shields.io/github/v/release/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/releases)
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.20-7F52FF.svg?logo=kotlin)](https://kotlinlang.org)
-[![JVM](https://img.shields.io/badge/JVM-17+-orange.svg)](https://openjdk.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<div class="badges">
+  <a href="https://github.com/thisKK/taskrunna-framework/releases">
+    <img src="https://img.shields.io/github/v/release/thisKK/taskrunna-framework" alt="GitHub release">
+  </a>
+  <img src="https://img.shields.io/badge/Kotlin-1.9.20-7F52FF.svg?logo=kotlin" alt="Kotlin">
+  <img src="https://img.shields.io/badge/JVM-17+-orange.svg" alt="JVM">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+</div>
 
-A **lightweight, single-package** job orchestration framework for asynchronous task execution in microservices. Process batches efficiently with built-in **Prometheus metrics**, error handling, and pagination support.
+## ✨ Why TaskRunna?
 
-## 🚀 Quick Start
+<div class="features">
+  <div class="feature-item">
+    <div class="feature-emoji">🎯</div>
+    <div class="feature-content">
+      <strong>Single Dependency</strong>
+      Just `com.taskrunna:taskrunna` - no complex module management
+    </div>
+  </div>
+  
+  <div class="feature-item">
+    <div class="feature-emoji">🚀</div>
+    <div class="feature-content">
+      <strong>Async by Design</strong>
+      `ListenableFuture`/`CompletableFuture` with non-blocking execution
+    </div>
+  </div>
+  
+  <div class="feature-item">
+    <div class="feature-emoji">📊</div>
+    <div class="feature-content">
+      <strong>Production Metrics</strong>
+      Built-in Prometheus integration for observability
+    </div>
+  </div>
+  
+  <div class="feature-item">
+    <div class="feature-emoji">🔄</div>
+    <div class="feature-content">
+      <strong>Smart Batch Processing</strong>
+      Handles pagination, retries, and graceful shutdowns
+    </div>
+  </div>
+  
+  <div class="feature-item">
+    <div class="feature-emoji">🛠️</div>
+    <div class="feature-content">
+      <strong>Plug & Play</strong>
+      Minimal setup, maximum functionality
+    </div>
+  </div>
+  
+  <div class="feature-item">
+    <div class="feature-emoji">⚡</div>
+    <div class="feature-content">
+      <strong>High Performance</strong>
+      Multi-threaded execution without blocking main pools
+    </div>
+  </div>
+</div>
 
-### Installation
-
-```kotlin
-dependencies {
-    implementation("com.taskrunna:taskrunna:1.1.0")
-}
-```
-
-### Basic Usage
-
-```kotlin
-import com.taskrunna.batch.*
-
-// 1. Define your data iterator
-class OrderIterator : BaseBatchIterator<Order>() {
-    override fun loadNextBatch(cursor: String, size: Int) = 
-        orderRepository.findPendingOrders(cursor, size)
-    
-    override fun extractCursorFrom(order: Order) = order.id
-}
-
-// 2. Process with async jobs
-val processor = BatchJobProcessor(
-    iterator = OrderIterator(),
-    submitJob = { order -> sendToKafka(order) },
-    onSuccess = { order, result -> markProcessed(order.id) },
-    onFailure = { order, error -> handleError(order, error) }
-)
-
-processor.run() // Processes all orders asynchronously!
-```
+<div class="quick-start">
+  <h2>🚀 Quick Start</h2>
+  
+  <h3>Installation</h3>
+  
+  ```kotlin
+  dependencies {
+      implementation("com.taskrunna:taskrunna:1.1.0")
+  }
+  ```
+  
+  <h3>Basic Usage</h3>
+  
+  ```kotlin
+  import com.taskrunna.batch.*
+  
+  // 1. Define your data iterator
+  class OrderIterator : BaseBatchIterator<Order>() {
+      override fun loadNextBatch(cursor: String, size: Int) = 
+          orderRepository.findPendingOrders(cursor, size)
+      
+      override fun extractCursorFrom(order: Order) = order.id
+  }
+  
+  // 2. Process with async jobs
+  val processor = BatchJobProcessor(
+      iterator = OrderIterator(),
+      submitJob = { order -> sendToKafka(order) },
+      onSuccess = { order, result -> markProcessed(order.id) },
+      onFailure = { order, error -> handleError(order, error) }
+  )
+  
+  processor.run() // Processes all orders asynchronously!
+  ```
+</div>
 
 ## 📚 Documentation
 
 <div class="docs-grid">
   <div class="docs-card">
     <h3><a href="getting-started">🚀 Getting Started</a></h3>
-    <p>Step-by-step tutorial to build your first batch processor</p>
+    <p>Step-by-step tutorial to build your first batch processor with TaskRunna</p>
   </div>
   
   <div class="docs-card">
     <h3><a href="examples">💡 Examples</a></h3>
-    <p>Real-world examples and use cases</p>
+    <p>Real-world examples: order processing, ETL pipelines, email campaigns</p>
   </div>
   
   <div class="docs-card">
     <h3><a href="metrics">📊 Metrics & Monitoring</a></h3>
-    <p>Prometheus integration and observability</p>
+    <p>Prometheus integration, dashboards, and production observability</p>
   </div>
   
   <div class="docs-card">
     <h3><a href="api-reference">📖 API Reference</a></h3>
-    <p>Complete API documentation</p>
+    <p>Complete API documentation for all classes and configurations</p>
   </div>
 </div>
 
-## ✨ Why TaskRunna?
+## 🆕 v1.1.0 - Major Simplification!
 
-- 🎯 **Single Dependency** - Just `com.taskrunna:taskrunna` - no complex module management
-- 🚀 **Async by Design** - `ListenableFuture`/`CompletableFuture` with non-blocking execution
-- 📊 **Production Metrics** - Built-in Prometheus integration for observability
-- 🔄 **Smart Batch Processing** - Handles pagination, retries, and graceful shutdowns
-- 🛠️ **Plug & Play** - Minimal setup, maximum functionality
-- ⚡ **High Performance** - Multi-threaded execution without blocking main pools
-
-## 🆕 v1.1.0 - Simplified!
-
-**Major improvement**: Consolidated from 2 packages into 1 for much simpler usage!
+**Consolidated from 2 packages into 1** for much simpler usage:
 
 - ✅ **Before**: `taskrunna-core` + `taskrunna-batch` (complex)
-- ✅ **Now**: Just `taskrunna` (simple!)
+- ✅ **Now**: Just `taskrunna` (simple!)  
 - 🎯 **One import, everything included**
 
 ## 🎯 Perfect For
 
-- **Microservices** with batch processing needs
-- **Data pipelines** requiring async execution  
-- **Systems** needing production-ready observability
-- **Teams** who want simple, powerful tools
+- **🏢 Microservices** with batch processing needs
+- **🔄 Data pipelines** requiring async execution  
+- **📊 Systems** needing production-ready observability
+- **👥 Teams** who want simple, powerful tools
 
-## 🔗 Links
+## 🔗 Useful Links
 
-- [GitHub Repository](https://github.com/thisKK/taskrunna-framework)
-- [Releases](https://github.com/thisKK/taskrunna-framework/releases)
-- [Issues](https://github.com/thisKK/taskrunna-framework/issues)
-- [License](https://github.com/thisKK/taskrunna-framework/blob/main/LICENSE)
+<div class="links-grid">
+  <div class="link-item">
+    <a href="https://github.com/thisKK/taskrunna-framework">📂 GitHub Repository</a>
+  </div>
+  
+  <div class="link-item">
+    <a href="https://github.com/thisKK/taskrunna-framework/releases">🏷️ Releases</a>
+  </div>
+  
+  <div class="link-item">
+    <a href="https://github.com/thisKK/taskrunna-framework/issues">🐛 Issues</a>
+  </div>
+  
+  <div class="link-item">
+    <a href="https://github.com/thisKK/taskrunna-framework/blob/main/LICENSE">📄 MIT License</a>
+  </div>
+</div>
 
-<style>
-.docs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin: 30px 0;
-}
+---
 
-.docs-card {
-  border: 1px solid #e1e4e8;
-  border-radius: 8px;
-  padding: 20px;
-  background: #f6f8fa;
-}
-
-.docs-card h3 {
-  margin-top: 0;
-  color: #0366d6;
-}
-
-.docs-card h3 a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.docs-card h3 a:hover {
-  text-decoration: underline;
-}
-
-.docs-card p {
-  color: #586069;
-  margin-bottom: 0;
-}
-</style> 
+**TaskRunna Framework** - Making async batch processing simple and powerful! 🚀 
 
  

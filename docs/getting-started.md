@@ -1,42 +1,70 @@
 ---
 layout: default
 title: Getting Started
-permalink: /getting-started/
+description: Step-by-step guide to building your first TaskRunna batch processor
 ---
 
-# 🚀 Getting Started with TaskRunna
+<div class="hero">
+  <h1>🚀 Getting Started with TaskRunna</h1>
+  <p>Build your first async batch processor in minutes</p>
+</div>
 
-This guide will walk you through creating your first TaskRunna batch processor in just a few minutes.
+Welcome to TaskRunna! This guide will walk you through creating your first batch processing application using TaskRunna Framework.
 
-## Prerequisites
+## 📋 Prerequisites
 
-- **Java 17+** or **Kotlin 1.9.20+**
-- **Gradle 8.0+** or **Maven 3.6+**
-- Basic understanding of asynchronous programming
+- **Java 17+** (OpenJDK recommended)
+- **Gradle 7.4+** or **Maven 3.6+**
+- **Kotlin 1.9.20+** (or Java 8+ if using Java)
 
-## Step 1: Add TaskRunna to Your Project
+<div class="quick-start">
+  <h2>⚡ Quick Setup</h2>
+  
+  <h3>1. Add TaskRunna Dependency</h3>
+  
+  **Gradle (Kotlin DSL):**
+  ```kotlin
+  repositories {
+      maven {
+          url = uri("https://maven.pkg.github.com/thisKK/taskrunna-framework")
+          credentials {
+              username = "your-github-username"
+              password = "your-github-token" // Personal access token with read:packages
+          }
+      }
+  }
+  
+  dependencies {
+      implementation("com.taskrunna:taskrunna:1.1.0")
+  }
+  ```
+  
+  **Maven:**
+  ```xml
+  <repositories>
+      <repository>
+          <id>github</id>
+          <url>https://maven.pkg.github.com/thisKK/taskrunna-framework</url>
+      </repository>
+  </repositories>
+  
+  <dependencies>
+      <dependency>
+          <groupId>com.taskrunna</groupId>
+          <artifactId>taskrunna</artifactId>
+          <version>1.1.0</version>
+      </dependency>
+  </dependencies>
+  ```
+  
+  > 🔐 **Authentication Required**: GitHub Packages needs a [Personal Access Token](https://github.com/settings/tokens) with `read:packages` permission.
+</div>
 
-### Gradle (Recommended)
+## 🎯 Your First Batch Processor
 
-```kotlin
-dependencies {
-    implementation("com.taskrunna:taskrunna:1.1.0")
-}
-```
+Let's create a simple batch processor that processes customer orders:
 
-### Maven
-
-```xml
-<dependency>
-    <groupId>com.taskrunna</groupId>
-    <artifactId>taskrunna</artifactId>
-    <version>1.1.0</version>
-</dependency>
-```
-
-## Step 2: Create Your Data Model
-
-First, define the data you want to process:
+### Step 1: Define Your Data Model
 
 ```kotlin
 data class Order(
@@ -47,216 +75,203 @@ data class Order(
 )
 ```
 
-## Step 3: Implement Your Batch Iterator
-
-Create an iterator that loads data in batches:
+### Step 2: Create a Batch Iterator
 
 ```kotlin
 import com.taskrunna.batch.BaseBatchIterator
 
-class OrderIterator(private val orderService: OrderService) : BaseBatchIterator<Order>() {
+class OrderIterator(private val repository: OrderRepository) : BaseBatchIterator<Order>() {
     
     override fun loadNextBatch(afterCursor: String, batchSize: Int): List<Order> {
-        // Load orders from your data source
-        return orderService.findFailedOrders(
-            afterId = afterCursor.takeIf { it.isNotEmpty() },
-            limit = batchSize
-        )
+        return repository.findPendingOrders(afterCursor, batchSize)
     }
     
     override fun extractCursorFrom(item: Order): String {
-        // Return a unique identifier for pagination
         return item.id
     }
 }
 ```
 
-## Step 4: Define Your Job Processing Logic
-
-Create the async job that processes each item:
-
-```kotlin
-import com.google.common.util.concurrent.ListenableFuture
-import com.google.common.util.concurrent.SettableFuture
-
-fun retryOrder(order: Order): ListenableFuture<String> {
-    val future = SettableFuture.create<String>()
-    
-    // Simulate async processing (e.g., HTTP call, message queue)
-    CompletableFuture.supplyAsync {
-        try {
-            // Your business logic here
-            paymentService.retryPayment(order)
-            orderService.markAsRetried(order.id)
-            "Successfully retried order ${order.id}"
-        } catch (e: Exception) {
-            throw RuntimeException("Failed to retry order ${order.id}: ${e.message}", e)
-        }
-    }.whenComplete { result, error ->
-        if (error != null) {
-            future.setException(error)
-        } else {
-            future.set(result)
-        }
-    }
-    
-    return future
-}
-```
-
-## Step 5: Create and Run the Batch Processor
-
-Put it all together:
+### Step 3: Create Your Batch Processor
 
 ```kotlin
 import com.taskrunna.batch.BatchJobProcessor
+import com.google.common.util.concurrent.ListenableFuture
 import io.github.oshai.kotlinlogging.KotlinLogging
 
-private val logger = KotlinLogging.logger {}
-
-fun main() {
-    // Create the batch processor
-    val processor = BatchJobProcessor(
-        iterator = OrderIterator(orderService),
-        submitJob = ::retryOrder,
-        onSuccess = { order, result -> 
-            logger.info { "✅ $result" }
-        },
-        onFailure = { order, error -> 
-            logger.error(error) { "❌ Failed to process order ${order.id}" }
-            // Optional: Send to dead letter queue, alert, etc.
-        },
-        logger = logger
-    )
+class OrderProcessor {
+    private val logger = KotlinLogging.logger {}
     
-    // Run the batch job
-    logger.info { "Starting order retry batch job..." }
-    processor.run()
-    logger.info { "Batch job completed!" }
+    fun processOrders() {
+        val processor = BatchJobProcessor(
+            iterator = OrderIterator(orderRepository),
+            submitJob = { order -> processOrder(order) },
+            onSuccess = { order, result -> 
+                logger.info { "Successfully processed order ${order.id}" }
+                markOrderComplete(order.id)
+            },
+            onFailure = { order, error -> 
+                logger.error(error) { "Failed to process order ${order.id}" }
+                markOrderFailed(order.id, error.message)
+            },
+            logger = logger
+        )
+        
+        processor.run()
+    }
+    
+    private fun processOrder(order: Order): ListenableFuture<String> {
+        // Your async processing logic here
+        // e.g., send to Kafka, call external API, etc.
+        return someAsyncService.process(order)
+    }
 }
 ```
 
-## Step 6: Run Your Application
-
-```bash
-./gradlew run
-```
-
-You should see output like:
-
-```
-[main] INFO  OrderRetryJob - Starting order retry batch job...
-[main] INFO  OrderRetryJob - [BatchJob] Starting...
-[main] INFO  OrderRetryJob - [BatchJob] Retrieved 25 record(s).
-Batch #1 - 25 records in 0.045 sec.
-[pool-1-thread-1] INFO  OrderRetryJob - ✅ Successfully retried order ORD-001
-[pool-1-thread-2] INFO  OrderRetryJob - ✅ Successfully retried order ORD-002
-...
-[main] INFO  OrderRetryJob - Completed processing 25 records — 23 succeeded (92.00%) in 1.23 seconds. 2 records failed
-[main] INFO  OrderRetryJob - [BatchJob] All jobs submitted. Job completed.
-[main] INFO  OrderRetryJob - Batch job completed!
-```
-
-## 🎉 Congratulations!
-
-You've successfully created your first TaskRunna batch processor! 
-
-## Next Steps
-
-- **Add Metrics**: [Learn how to add Prometheus metrics](metrics)
-- **See More Examples**: [Explore real-world use cases](examples)
-- **Production Setup**: [Best practices for production deployments](api-reference#production-configuration)
-
-## Configuration Options
-
-### Batch Size
-
-Control how many items are loaded per batch:
+### Step 4: Run Your Processor
 
 ```kotlin
-class OrderIterator : BaseBatchIterator<Order>() {
-    override val defaultBatchSize = 50 // Default: 20
-    
-    // ... rest of implementation
+fun main() {
+    val orderProcessor = OrderProcessor()
+    orderProcessor.processOrders()
 }
+```
+
+## 🎛️ Configuration Options
+
+TaskRunna provides flexible configuration:
+
+### Batch Size Configuration
+
+```kotlin
+val processor = BatchJobProcessor(
+    iterator = OrderIterator(repository),
+    submitJob = { order -> processOrder(order) },
+    batchSize = 50,  // Process 50 items at a time
+    maxConcurrency = 10,  // Max 10 concurrent jobs
+    // ... other options
+)
 ```
 
 ### Thread Pool Configuration
 
-TaskRunna uses a default thread pool, but you can customize it:
-
 ```kotlin
+val customExecutor = Executors.newFixedThreadPool(20)
+
 val processor = BatchJobProcessor(
-    iterator = OrderIterator(orderService),
-    submitJob = ::retryOrder,
-    // Custom configuration via constructor parameters
-    logger = logger
+    iterator = OrderIterator(repository),
+    submitJob = { order -> processOrder(order) },
+    executor = customExecutor,  // Use custom thread pool
+    // ... other options
 )
 ```
 
-### Error Handling Strategies
+### Error Handling
 
 ```kotlin
 val processor = BatchJobProcessor(
-    iterator = OrderIterator(orderService),
-    submitJob = ::retryOrder,
+    iterator = OrderIterator(repository),
+    submitJob = { order -> processOrder(order) },
     onSuccess = { order, result -> 
-        logger.info { "Processed: ${order.id}" }
-        metricsCollector.incrementSuccess()
+        // Handle successful processing
+        updateOrderStatus(order.id, "COMPLETED", result)
     },
     onFailure = { order, error -> 
-        logger.error(error) { "Failed: ${order.id}" }
+        // Handle processing errors
+        updateOrderStatus(order.id, "FAILED", error.message)
         
-        // Different strategies based on error type
-        when (error) {
-            is TimeoutException -> deadLetterQueue.send(order)
-            is ValidationException -> invalidOrderQueue.send(order)
-            else -> alertService.notify("Unexpected error processing ${order.id}")
-        }
-        
-        metricsCollector.incrementFailure(error::class.simpleName)
-    },
-    logger = logger
+        // Optional: send to dead letter queue
+        deadLetterQueue.send(order, error)
+    }
 )
 ```
 
-## Troubleshooting
+## 📊 Adding Metrics (Optional)
+
+For production monitoring, add Prometheus metrics:
+
+```kotlin
+import com.taskrunna.batch.metrics.PrometheusConfig
+
+// Create metrics registry
+val metrics = PrometheusConfig.createBatchMetrics("order_processor")
+
+val processor = BatchJobProcessor(
+    iterator = OrderIterator(repository),
+    submitJob = { order -> processOrder(order) },
+    metrics = metrics,  // Enable metrics collection
+    jobName = "order_processing",
+    // ... other options
+)
+```
+
+See our [Metrics Guide](metrics) for complete monitoring setup.
+
+## ✅ Testing Your Processor
+
+### Unit Testing
+
+```kotlin
+import org.junit.jupiter.api.Test
+import io.mockk.mockk
+import io.mockk.every
+
+class OrderProcessorTest {
+    
+    @Test
+    fun `should process orders successfully`() {
+        // Given
+        val mockRepository = mockk<OrderRepository>()
+        val orders = listOf(
+            Order("1", "customer1", 100.0, "PENDING"),
+            Order("2", "customer2", 200.0, "PENDING")
+        )
+        
+        every { mockRepository.findPendingOrders(any(), any()) } returns orders
+        
+        // When
+        val iterator = OrderIterator(mockRepository)
+        val batch = iterator.loadNextBatch("", 10)
+        
+        // Then
+        assertEquals(2, batch.size)
+        assertEquals("1", iterator.extractCursorFrom(batch[0]))
+    }
+}
+```
+
+## 🚀 Next Steps
+
+1. **[Explore Examples](examples)** - See real-world use cases
+2. **[Add Monitoring](metrics)** - Set up Prometheus metrics  
+3. **[API Reference](api-reference)** - Deep dive into all features
+
+## 🆘 Troubleshooting
 
 ### Common Issues
 
-**Q: My batch processor stops after the first batch**
-**A:** Make sure your `loadNextBatch` method returns an empty list when there's no more data:
-
-```kotlin
-override fun loadNextBatch(afterCursor: String, batchSize: Int): List<Order> {
-    val orders = orderService.findFailedOrders(afterCursor, batchSize)
-    return orders // Return empty list when no more data
-}
+**Authentication Error with GitHub Packages:**
 ```
-
-**Q: I'm getting "Unresolved reference" errors**
-**A:** Make sure you have the required dependencies:
-
-```kotlin
-dependencies {
-    implementation("com.taskrunna:taskrunna:1.1.0")
-    implementation("com.google.guava:guava:32.1.3-jre") // For ListenableFuture
-    implementation("io.github.oshai:kotlin-logging-jvm:5.1.0") // For logging
-}
+Could not resolve com.taskrunna:taskrunna:1.1.0
 ```
+**Solution:** Ensure your GitHub token has `read:packages` permission and is correctly configured.
 
-**Q: How do I handle database transactions?**
-**A:** Handle transactions in your job processing function:
-
-```kotlin
-fun retryOrder(order: Order): ListenableFuture<String> {
-    return CompletableFuture.supplyAsync {
-        transactionManager.executeInTransaction {
-            // Your transactional logic here
-            orderService.retryPayment(order)
-        }
-    }.toListenableFuture()
-}
+**OutOfMemoryError:**
 ```
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+```
+**Solution:** Reduce `batchSize` or increase JVM heap space with `-Xmx2g`.
 
-Need more help? [Open an issue on GitHub](https://github.com/thisKK/taskrunna-framework/issues)! 
+**Too Many Concurrent Requests:**
+```
+Connection pool exhausted
+```
+**Solution:** Reduce `maxConcurrency` parameter.
+
+### Getting Help
+
+- 📖 [API Reference](api-reference) - Complete documentation
+- 🐛 [GitHub Issues](https://github.com/thisKK/taskrunna-framework/issues) - Report bugs
+- 💡 [Examples](examples) - More code samples
+
+Ready to build something awesome? Let's go! 🚀 
