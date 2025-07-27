@@ -1,0 +1,1 @@
+// Core module - contains base interfaces and utilities 
