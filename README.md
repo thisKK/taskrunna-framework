@@ -1,20 +1,35 @@
 # TaskRunna Framework 🏃‍♂️
 
-TaskRunna is a lightweight, modular job orchestration framework designed for asynchronous task execution in microservices.
+A **lightweight, single-package** job orchestration framework for asynchronous task execution in microservices. Process batches efficiently with built-in **Prometheus metrics**, error handling, and pagination support.
 
-## ✨ Highlights
-- Plug-and-play `TaskRunner` and `BatchProcessor`
-- Async job submission (`ListenableFuture` / `CompletableFuture`)
-- Built-in hooks: `onSuccess`, `onFailure`, metrics, and observability
-- Supports multi-threaded execution without blocking main pools
-- Production-ready: minimal setup, maximal clarity
+## ✨ Why TaskRunna?
 
-## 📦 Modules
+- 🎯 **Single Dependency** - Just `com.taskrunna:taskrunna` - no complex module management
+- 🚀 **Async by Design** - `ListenableFuture`/`CompletableFuture` with non-blocking execution
+- 📊 **Production Metrics** - Built-in Prometheus integration for observability
+- 🔄 **Smart Batch Processing** - Handles pagination, retries, and graceful shutdowns
+- 🛠️ **Plug & Play** - Minimal setup, maximum functionality
+- ⚡ **High Performance** - Multi-threaded execution without blocking main pools
 
-| Module              | Description                                      |
-|---------------------|--------------------------------------------------|
-| `taskrunna`         | Complete framework with batch processing, metrics, and utilities |
-| `taskrunna-examples` | Sample use cases and integration guides         |
+## 🆕 v1.1.0 - Simplified!
+
+**Major improvement**: Consolidated from 2 packages into 1 for much simpler usage!
+
+- ✅ **Before**: `taskrunna-core` + `taskrunna-batch` (complex)
+- ✅ **Now**: Just `taskrunna` (simple!)
+- 🎯 **One import, everything included**
+
+## 📦 What's Included
+
+**`com.taskrunna:taskrunna`** - Complete framework in one package:
+
+- **`BatchJobProcessor`** - Main processing engine with async execution
+- **`BaseBatchIterator`** - Abstract pagination iterator for data sources
+- **`BatchJobStats`** - Execution statistics and monitoring
+- **`BatchMetrics`** - Prometheus metrics integration (optional)
+- **`PrometheusConfig`** - Easy metrics setup utilities
+
+**`taskrunna-examples`** - Working examples and integration guides
 
 ## 🚀 Quick Start
 
@@ -33,7 +48,7 @@ cd taskrunna-framework
 
 ### Installation
 
-Add TaskRunna to your Gradle build:
+**Simple!** Just add one dependency:
 
 ```kotlin
 repositories {
@@ -47,70 +62,72 @@ repositories {
 }
 
 dependencies {
-    implementation("com.taskrunna:taskrunna:1.1.0")
+    implementation("com.taskrunna:taskrunna:1.1.0") // Everything included!
 }
 ```
 
-> **Note**: GitHub Packages requires authentication. Create a [Personal Access Token](https://github.com/settings/tokens) with `read:packages` permission.
+> **🔐 Authentication**: GitHub Packages requires a [Personal Access Token](https://github.com/settings/tokens) with `read:packages` permission.
 
-#### Development Installation
-
-For development or local testing, build from source:
+<details>
+<summary><strong>📋 Alternative: Build from Source</strong></summary>
 
 ```bash
 git clone https://github.com/thisKK/taskrunna-framework.git
 cd taskrunna-framework
 ./gradlew publishToMavenLocal
+
+# Then use in your project:
+dependencies {
+    implementation("com.taskrunna:taskrunna:1.1.0")
+}
 ```
+</details>
 
 ### Basic Usage
 
-```kotlin
-import com.taskrunna.batch.BatchJobProcessor
-import com.taskrunna.batch.BaseBatchIterator
+**Process orders from database → Send to Kafka:**
 
-// 1. Create your batch iterator
-class MyBatchIterator(private val repo: Repository) : BaseBatchIterator<MyItem>() {
-    override fun loadNextBatch(afterCursor: String, batchSize: Int) = 
-        repo.findBatch(afterCursor, batchSize)
+```kotlin
+// Single import - everything included! 
+import com.taskrunna.batch.*
+
+// 1. Define your data iterator
+class OrderIterator : BaseBatchIterator<Order>() {
+    override fun loadNextBatch(cursor: String, size: Int) = 
+        orderRepository.findPendingOrders(cursor, size)
     
-    override fun extractCursorFrom(item: MyItem) = item.id
+    override fun extractCursorFrom(order: Order) = order.id
 }
 
-// 2. Create and run the processor
+// 2. Process with async jobs
 val processor = BatchJobProcessor(
-    iterator = MyBatchIterator(repo),
-    submitJob = { item -> sendToKafka(item) },
-    onSuccess = { item, result -> markDone(item.id) },
-    onFailure = { item, error -> log.warn("fail: ${item.id}") },
-    logger = logger
+    iterator = OrderIterator(),
+    submitJob = { order -> sendToKafka(order) },    // Returns ListenableFuture
+    onSuccess = { order, result -> markProcessed(order.id) },
+    onFailure = { order, error -> handleError(order, error) }
 )
-processor.run()
+
+processor.run() // Processes all orders asynchronously!
 ```
 
-### With Prometheus Metrics
+### With Production Metrics 📊
 
 ```kotlin
 import com.taskrunna.batch.metrics.PrometheusConfig
-import io.micrometer.prometheus.PrometheusMeterRegistry
 
-// Setup Prometheus metrics
-val prometheusRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
-val metrics = PrometheusConfig.createBatchMetrics(prometheusRegistry, "my_app")
+// Enable Prometheus metrics (optional)
+val metrics = PrometheusConfig.createBatchMetrics("order_processor")
 
 val processor = BatchJobProcessor(
-    iterator = MyBatchIterator(repo),
-    submitJob = { item -> sendToKafka(item) },
-    onSuccess = { item, result -> markDone(item.id) },
-    onFailure = { item, error -> log.warn("fail: ${item.id}") },
-    logger = logger,
-    metrics = metrics,
-    jobName = "kafka_publisher"
+    iterator = OrderIterator(),
+    submitJob = { order -> sendToKafka(order) },
+    metrics = metrics,  // Automatic observability!
+    jobName = "order_processing"
 )
+
 processor.run()
 
-// Expose metrics endpoint
-// GET /metrics -> prometheusRegistry.scrape()
+// Metrics automatically available at /metrics endpoint!
 ```
 
 ## 📊 Metrics & Observability
@@ -158,16 +175,24 @@ The included `PrometheusMetricsExample` demonstrates:
 
 ## 🏗️ Project Structure
 
+**Simple & Clean** - Just what you need:
+
 ```
 taskrunna-framework/
-├── taskrunna/               # Complete TaskRunna library
-│   ├── BaseBatchIterator    # Abstract pagination iterator
-│   ├── BatchJobProcessor    # Main processing engine
-│   ├── BatchJobStats        # Metrics and monitoring
-│   └── metrics/             # Prometheus integration
-└── taskrunna-examples/      # Usage examples and demos
-    └── PrometheusMetricsExample  # Order retry system with full observability
+├── taskrunna/                    # 📦 Single Package - Everything included
+│   ├── BatchJobProcessor         #   🏗️  Main async processing engine  
+│   ├── BaseBatchIterator         #   🔄  Pagination & data iteration
+│   ├── BatchJobStats             #   📊  Execution statistics
+│   └── metrics/
+│       ├── BatchMetrics          #   📈  Metrics interface
+│       ├── MicrometerBatchMetrics#   🔗  Prometheus integration  
+│       └── PrometheusConfig      #   ⚙️   Easy setup utilities
+└── taskrunna-examples/           # 🎯 Working Examples
+    ├── SimpleExample             #   📝  Basic usage demo
+    └── PrometheusMetricsExample  #   🚀  Production-ready example
 ```
+
+**v1.1.0 Benefits**: Single import, everything works together seamlessly!
 
 ## 🔧 Development
 
@@ -204,6 +229,21 @@ curl http://localhost:8080/metrics | grep -E "(tasks_submitted|job_duration)"
 
 ## 📚 Documentation
 
+- **[PUBLISHING.md](PUBLISHING.md)** - How to publish to GitHub Packages & Maven Central
 - **[METRICS.md](METRICS.md)** - Comprehensive Prometheus metrics guide
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Development setup and guidelines  
-- **[DEVBOX.md](DEVBOX.md)** - Devbox environment quick reference 
+- **[DEVBOX.md](DEVBOX.md)** - Devbox environment quick reference
+
+## 🎯 Perfect For
+
+- **Microservices** with batch processing needs
+- **Data pipelines** requiring async execution
+- **Systems** needing production-ready observability
+- **Teams** who want simple, powerful tools
+
+---
+
+**TaskRunna v1.1.0** - One package, endless possibilities! 🚀
+
+[![GitHub](https://img.shields.io/badge/GitHub-thisKK%2Ftaskrunna--framework-blue?logo=github)](https://github.com/thisKK/taskrunna-framework)
+[![Packages](https://img.shields.io/badge/Packages-GitHub-green?logo=github)](https://github.com/thisKK/taskrunna-framework/packages) 
