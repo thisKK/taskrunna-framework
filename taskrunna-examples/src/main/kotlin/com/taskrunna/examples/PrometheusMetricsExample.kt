@@ -12,11 +12,11 @@ import io.ktor.server.netty.Netty
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
-import io.micrometer.prometheus.PrometheusMeterRegistry
+import io.micrometer.prometheusmetrics.PrometheusConfig
+import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.CompletableFuture
 import kotlin.random.Random
-import io.micrometer.prometheus.PrometheusConfig as PromConfig
 
 private val logger = KotlinLogging.logger {}
 
@@ -105,7 +105,7 @@ class OrderRetryService {
  */
 fun main() = runBlocking {
     // Setup Prometheus registry
-    val prometheusRegistry = PrometheusMeterRegistry(PromConfig.DEFAULT)
+    val prometheusRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
     val metrics = MicrometerBatchMetrics(prometheusRegistry, "order_retry")
 
     // Setup services
