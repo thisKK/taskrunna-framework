@@ -6,6 +6,8 @@ permalink: /examples/
 
 # 💡 TaskRunna Examples
 
+<div class="wrapper">
+
 Real-world examples showing how to use TaskRunna in different scenarios.
 
 ## 🚀 Live Example: Order Retry System
@@ -426,4 +428,6 @@ class BatchJobIntegrationTest {
 }
 ```
 
-Need more examples? [Check the source code](https://github.com/thisKK/taskrunna-framework/tree/main/taskrunna-examples) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues) with your use case! 
+Need more examples? [Check the source code](https://github.com/thisKK/taskrunna-framework/tree/main/taskrunna-examples) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues) with your use case!
+
+</div> 

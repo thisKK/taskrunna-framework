@@ -6,6 +6,8 @@ permalink: /api-reference/
 
 # 📖 API Reference
 
+<div class="wrapper">
+
 Complete reference for all TaskRunna classes and interfaces.
 
 ## Core Classes
@@ -452,4 +454,6 @@ All functionality remains the same - just import paths changed.
 
 ---
 
-Need more details? [Check the source code](https://github.com/thisKK/taskrunna-framework) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues)! 
+Need more details? [Check the source code](https://github.com/thisKK/taskrunna-framework) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues)!
+
+</div> 
