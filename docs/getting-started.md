@@ -23,39 +23,41 @@ Welcome to TaskRunna! This guide will walk you through creating your first batch
   <h3>1. Add TaskRunna Dependency</h3>
   
   **Gradle (Kotlin DSL):**
-  ```kotlin
-  repositories {
-      maven {
-          url = uri("https://maven.pkg.github.com/thisKK/taskrunna-framework")
-          credentials {
-              username = "your-github-username"
-              password = "your-github-token" // Personal access token with read:packages
-          }
-      }
-  }
   
-  dependencies {
-      implementation("com.taskrunna:taskrunna:1.1.0")
-  }
-  ```
+<div class="highlight">
+<pre><code class="language-kotlin">repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/thisKK/taskrunna-framework")
+        credentials {
+            username = "your-github-username"
+            password = "your-github-token" // Personal access token with read:packages
+        }
+    }
+}
+
+dependencies {
+    implementation("com.taskrunna:taskrunna:1.1.0")
+}</code></pre>
+</div>
   
   **Maven:**
-  ```xml
-  <repositories>
-      <repository>
-          <id>github</id>
-          <url>https://maven.pkg.github.com/thisKK/taskrunna-framework</url>
-      </repository>
-  </repositories>
   
-  <dependencies>
-      <dependency>
-          <groupId>com.taskrunna</groupId>
-          <artifactId>taskrunna</artifactId>
-          <version>1.1.0</version>
-      </dependency>
-  </dependencies>
-  ```
+<div class="highlight">
+<pre><code class="language-xml">&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;github&lt;/id&gt;
+        &lt;url&gt;https://maven.pkg.github.com/thisKK/taskrunna-framework&lt;/url&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.taskrunna&lt;/groupId&gt;
+        &lt;artifactId&gt;taskrunna&lt;/artifactId&gt;
+        &lt;version&gt;1.1.0&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</div>
   
   > 🔐 **Authentication Required**: GitHub Packages needs a [Personal Access Token](https://github.com/settings/tokens) with <code>read:packages</code> permission.
 </div>
@@ -66,36 +68,36 @@ Let's create a simple batch processor that processes customer orders:
 
 ### Step 1: Define Your Data Model
 
-```kotlin
-data class Order(
+<div class="highlight">
+<pre><code class="language-kotlin">data class Order(
     val id: String,
     val customerId: String,
     val amount: Double,
     val status: String
-)
-```
+)</code></pre>
+</div>
 
 ### Step 2: Create a Batch Iterator
 
-```kotlin
-import com.taskrunna.batch.BaseBatchIterator
+<div class="highlight">
+<pre><code class="language-kotlin">import com.taskrunna.batch.BaseBatchIterator
 
-class OrderIterator(private val repository: OrderRepository) : BaseBatchIterator<Order>() {
+class OrderIterator(private val repository: OrderRepository) : BaseBatchIterator&lt;Order&gt;() {
     
-    override fun loadNextBatch(afterCursor: String, batchSize: Int): List<Order> {
+    override fun loadNextBatch(afterCursor: String, batchSize: Int): List&lt;Order&gt; {
         return repository.findPendingOrders(afterCursor, batchSize)
     }
     
     override fun extractCursorFrom(item: Order): String {
         return item.id
     }
-}
-```
+}</code></pre>
+</div>
 
 ### Step 3: Create Your Batch Processor
 
-```kotlin
-import com.taskrunna.batch.BatchJobProcessor
+<div class="highlight">
+<pre><code class="language-kotlin">import com.taskrunna.batch.BatchJobProcessor
 import com.google.common.util.concurrent.ListenableFuture
 import io.github.oshai.kotlinlogging.KotlinLogging
 
@@ -105,12 +107,12 @@ class OrderProcessor {
     fun processOrders() {
         val processor = BatchJobProcessor(
             iterator = OrderIterator(orderRepository),
-            submitJob = { order -> processOrder(order) },
-            onSuccess = { order, result -> 
+            submitJob = { order -&gt; processOrder(order) },
+            onSuccess = { order, result -&gt; 
                 logger.info { "Successfully processed order ${order.id}" }
                 markOrderComplete(order.id)
             },
-            onFailure = { order, error -> 
+            onFailure = { order, error -&gt; 
                 logger.error(error) { "Failed to process order ${order.id}" }
                 markOrderFailed(order.id, error.message)
             },
@@ -120,22 +122,22 @@ class OrderProcessor {
         processor.run()
     }
     
-    private fun processOrder(order: Order): ListenableFuture<String> {
+    private fun processOrder(order: Order): ListenableFuture&lt;String&gt; {
         // Your async processing logic here
         // e.g., send to Kafka, call external API, etc.
         return someAsyncService.process(order)
     }
-}
-```
+}</code></pre>
+</div>
 
 ### Step 4: Run Your Processor
 
-```kotlin
-fun main() {
+<div class="highlight">
+<pre><code class="language-kotlin">fun main() {
     val orderProcessor = OrderProcessor()
     orderProcessor.processOrders()
-}
-```
+}</code></pre>
+</div>
 
 ## 🎛️ Configuration Options
 
@@ -143,67 +145,67 @@ TaskRunna provides flexible configuration:
 
 ### Batch Size Configuration
 
-```kotlin
-val processor = BatchJobProcessor(
+<div class="highlight">
+<pre><code class="language-kotlin">val processor = BatchJobProcessor(
     iterator = OrderIterator(repository),
-    submitJob = { order -> processOrder(order) },
+    submitJob = { order -&gt; processOrder(order) },
     batchSize = 50,  // Process 50 items at a time
     maxConcurrency = 10,  // Max 10 concurrent jobs
     // ... other options
-)
-```
+)</code></pre>
+</div>
 
 ### Thread Pool Configuration
 
-```kotlin
-val customExecutor = Executors.newFixedThreadPool(20)
+<div class="highlight">
+<pre><code class="language-kotlin">val customExecutor = Executors.newFixedThreadPool(20)
 
 val processor = BatchJobProcessor(
     iterator = OrderIterator(repository),
-    submitJob = { order -> processOrder(order) },
+    submitJob = { order -&gt; processOrder(order) },
     executor = customExecutor,  // Use custom thread pool
     // ... other options
-)
-```
+)</code></pre>
+</div>
 
 ### Error Handling
 
-```kotlin
-val processor = BatchJobProcessor(
+<div class="highlight">
+<pre><code class="language-kotlin">val processor = BatchJobProcessor(
     iterator = OrderIterator(repository),
-    submitJob = { order -> processOrder(order) },
-    onSuccess = { order, result -> 
+    submitJob = { order -&gt; processOrder(order) },
+    onSuccess = { order, result -&gt; 
         // Handle successful processing
         updateOrderStatus(order.id, "COMPLETED", result)
     },
-    onFailure = { order, error -> 
+    onFailure = { order, error -&gt; 
         // Handle processing errors
         updateOrderStatus(order.id, "FAILED", error.message)
         
         // Optional: send to dead letter queue
         deadLetterQueue.send(order, error)
     }
-)
-```
+)</code></pre>
+</div>
 
 ## 📊 Adding Metrics (Optional)
 
 For production monitoring, add Prometheus metrics:
 
-```kotlin
-import com.taskrunna.batch.metrics.PrometheusConfig
+<div class="highlight">
+<pre><code class="language-kotlin">import com.taskrunna.batch.metrics.PrometheusConfig
 
 // Create metrics registry
 val metrics = PrometheusConfig.createBatchMetrics("order_processor")
 
 val processor = BatchJobProcessor(
     iterator = OrderIterator(repository),
-    submitJob = { order -> processOrder(order) },
+    submitJob = { order -&gt; processOrder(order) },
     metrics = metrics,  // Enable metrics collection
     jobName = "order_processing",
     // ... other options
-)
-```
+)</code></pre>
+</div>
 
 See our [Metrics Guide](metrics) for complete monitoring setup.
 
@@ -211,8 +213,8 @@ See our [Metrics Guide](metrics) for complete monitoring setup.
 
 ### Unit Testing
 
-```kotlin
-import org.junit.jupiter.api.Test
+<div class="highlight">
+<pre><code class="language-kotlin">import org.junit.jupiter.api.Test
 import io.mockk.mockk
 import io.mockk.every
 
@@ -221,7 +223,7 @@ class OrderProcessorTest {
     @Test
     fun `should process orders successfully`() {
         // Given
-        val mockRepository = mockk<OrderRepository>()
+        val mockRepository = mockk&lt;OrderRepository&gt;()
         val orders = listOf(
             Order("1", "customer1", 100.0, "PENDING"),
             Order("2", "customer2", 200.0, "PENDING")
@@ -237,8 +239,8 @@ class OrderProcessorTest {
         assertEquals(2, batch.size)
         assertEquals("1", iterator.extractCursorFrom(batch[0]))
     }
-}
-```
+}</code></pre>
+</div>
 
 ## 🚀 Next Steps
 
