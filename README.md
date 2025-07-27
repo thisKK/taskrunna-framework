@@ -248,6 +248,16 @@ curl http://localhost:8080/metrics | grep -E "(tasks_submitted|job_duration)"
 - **Systems** needing production-ready observability
 - **Teams** who want simple, powerful tools
 
+## ☕ Support This Project
+
+If TaskRunna has helped you or your team, consider supporting its development:
+
+<a href="https://www.buymeacoffee.com/thiskk" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="180" height="50">
+</a>
+
+Your support helps maintain and improve TaskRunna for the entire community! 🙏
+
 ---
 
 **TaskRunna v1.1.0** - One package, endless possibilities! 🚀
