@@ -2,6 +2,32 @@
 
 /* TaskRunna Custom Styles */
 
+/* Override minima theme content padding */
+.page-content {
+  padding: 0 40px !important;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Target minima theme's inner wrapper */
+.page-content .wrapper {
+  padding: 0 !important;
+  max-width: none !important;
+}
+
+/* Additional minima overrides */
+main.page-content {
+  padding: 0 40px !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+
+/* Force override any minima default padding */
+body .page-content {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+}
+
 /* Main content wrapper */
 .wrapper {
   max-width: 1200px;
@@ -180,6 +206,23 @@ pre, code {
 
 /* Responsive */
 @media (max-width: 1024px) {
+  .page-content {
+    padding: 0 30px !important;
+  }
+
+  main.page-content {
+    padding: 0 30px !important;
+  }
+
+  body .page-content {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+
+  .page-content .wrapper {
+    padding: 0 !important;
+  }
+
   .wrapper, .main-content {
     padding: 0 30px;
   }
@@ -190,6 +233,25 @@ pre, code {
 }
 
 @media (max-width: 768px) {
+  .page-content {
+    padding: 0 25px !important;
+    max-width: 100% !important;
+  }
+
+  main.page-content {
+    padding: 0 25px !important;
+    max-width: 100% !important;
+  }
+
+  body .page-content {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+  }
+
+  .page-content .wrapper {
+    padding: 0 !important;
+  }
+
   .wrapper, .main-content {
     padding: 0 25px;
     max-width: 100%;
@@ -230,6 +292,23 @@ pre, code {
 }
 
 @media (max-width: 480px) {
+  .page-content {
+    padding: 0 20px !important;
+  }
+
+  main.page-content {
+    padding: 0 20px !important;
+  }
+
+  body .page-content {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .page-content .wrapper {
+    padding: 0 !important;
+  }
+
   .wrapper, .main-content {
     padding: 0 20px;
   }

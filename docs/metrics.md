@@ -6,8 +6,6 @@ permalink: /metrics/
 
 # 📊 Metrics & Monitoring
 
-<div class="wrapper">
-
 TaskRunna provides comprehensive Prometheus metrics out of the box for production observability.
 
 ## 🚀 Quick Start
@@ -414,6 +412,4 @@ class CustomMetricsCollector(private val meterRegistry: MeterRegistry) {
 }
 ```
 
-Want to see metrics in action? [Run the live example](../examples#live-example-order-retry-system)!
-
-</div> 
+Want to see metrics in action? [Run the live example](../examples#live-example-order-retry-system)! 

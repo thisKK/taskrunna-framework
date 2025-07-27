@@ -9,8 +9,6 @@ description: Step-by-step guide to building your first TaskRunna batch processor
   <p>Build your first async batch processor in minutes</p>
 </div>
 
-<div class="wrapper">
-
 Welcome to TaskRunna! This guide will walk you through creating your first batch processing application using TaskRunna Framework.
 
 ## 📋 Prerequisites
@@ -278,6 +276,4 @@ Connection pool exhausted
 - 🐛 [GitHub Issues](https://github.com/thisKK/taskrunna-framework/issues) - Report bugs
 - 💡 [Examples](examples) - More code samples
 
-Ready to build something awesome? Let's go! 🚀
-
-</div> 
+Ready to build something awesome? Let's go! 🚀 
