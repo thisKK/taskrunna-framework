@@ -54,6 +54,48 @@ val processor = BatchJobProcessor(
 processor.run()
 ```
 
+### With Prometheus Metrics
+
+```kotlin
+import com.taskrunna.batch.metrics.PrometheusConfig
+import io.micrometer.prometheus.PrometheusMeterRegistry
+
+// Setup Prometheus metrics
+val prometheusRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
+val metrics = PrometheusConfig.createBatchMetrics(prometheusRegistry, "my_app")
+
+val processor = BatchJobProcessor(
+    iterator = MyBatchIterator(repo),
+    submitJob = { item -> sendToKafka(item) },
+    onSuccess = { item, result -> markDone(item.id) },
+    onFailure = { item, error -> log.warn("fail: ${item.id}") },
+    logger = logger,
+    metrics = metrics,
+    jobName = "kafka_publisher"
+)
+processor.run()
+
+// Expose metrics endpoint
+// GET /metrics -> prometheusRegistry.scrape()
+```
+
+## 📊 Metrics & Observability
+
+TaskRunna provides comprehensive Prometheus metrics out of the box:
+
+| Metric | Type | Description |
+|--------|------|-------------|
+| `{prefix}_jobs_started_total` | Counter | Total batch jobs started |
+| `{prefix}_jobs_completed_total` | Counter | Total batch jobs completed (success/failure) |
+| `{prefix}_job_duration_seconds` | Timer | Time taken for complete jobs |
+| `{prefix}_tasks_submitted_total` | Counter | Total tasks submitted for processing |
+| `{prefix}_tasks_completed_total` | Counter | Total tasks completed (success/failure) |
+| `{prefix}_task_duration_seconds` | Timer | Time taken for individual tasks |
+| `{prefix}_batches_processed_total` | Counter | Total batches processed |
+| `{prefix}_items_processed_total` | Counter | Total items processed across all batches |
+
+All metrics include relevant tags like `job_name`, `result`, and `error_type` for detailed observability.
+
 ## 🏗️ Project Structure
 
 ```
