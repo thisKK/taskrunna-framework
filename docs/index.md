@@ -66,7 +66,7 @@ description: Lightweight, single-package job orchestration framework for asynchr
 
 <div class="highlight">
 <pre><code class="language-kotlin">dependencies {
-    implementation("com.taskrunna:taskrunna:1.1.0")
+    implementation("com.taskrunna:taskrunna:1.1.2")
 }</code></pre>
 </div>
     
@@ -96,7 +96,7 @@ processor.run() // Processes all orders asynchronously!</code></pre>
   </div>
 
   <div class="version-highlight">
-    <h2>🆕 v1.1.0 - Major Simplification!</h2>
+    <h2>🆕 v1.1.2 - Major Simplification!</h2>
     <p><strong>Consolidated from 2 packages into 1</strong> for much simpler usage:</p>
     <p>✅ <strong>Before:</strong> <code>taskrunna-core</code> + <code>taskrunna-batch</code> (complex)</p>
     <p>✅ <strong>Now:</strong> Just <code>taskrunna</code> (simple!)</p>

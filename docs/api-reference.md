@@ -419,7 +419,7 @@ fun processOrderWithTimeout(order: Order): ListenableFuture<String> {
 
 ## Migration Guide
 
-### From v1.0.0 to v1.1.0
+### From v1.0.0 to v1.1.2
 
 The main change is package structure:
 
@@ -428,7 +428,7 @@ The main change is package structure:
 import com.taskrunna.core.BaseBatchIterator
 import com.taskrunna.batch.BatchJobProcessor
 
-// After (v1.1.0)
+// After (v1.1.2)
 import com.taskrunna.batch.BaseBatchIterator  // Moved to batch package
 import com.taskrunna.batch.BatchJobProcessor
 ```
@@ -442,9 +442,9 @@ dependencies {
     implementation("com.taskrunna:taskrunna-batch:1.0.0")
 }
 
-// After (v1.1.0)
+// After (v1.1.2)
 dependencies {
-    implementation("com.taskrunna:taskrunna:1.1.0")  // Single dependency
+    implementation("com.taskrunna:taskrunna:1.1.2")  // Single dependency
 }
 ```
 

@@ -36,7 +36,7 @@ Welcome to TaskRunna! This guide will walk you through creating your first batch
 }
 
 dependencies {
-    implementation("com.taskrunna:taskrunna:1.1.0")
+    implementation("com.taskrunna:taskrunna:1.1.2")
 }</code></pre>
 </div>
   
@@ -54,7 +54,7 @@ dependencies {
     &lt;dependency&gt;
         &lt;groupId&gt;com.taskrunna&lt;/groupId&gt;
         &lt;artifactId&gt;taskrunna&lt;/artifactId&gt;
-        &lt;version&gt;1.1.0&lt;/version&gt;
+        &lt;version&gt;1.1.2&lt;/version&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -254,7 +254,7 @@ class OrderProcessorTest {
 
 **Authentication Error with GitHub Packages:**
 ```
-Could not resolve com.taskrunna:taskrunna:1.1.0
+Could not resolve com.taskrunna:taskrunna:1.1.2
 ```
 **Solution:** Ensure your GitHub token has <code>read:packages</code> permission and is correctly configured.
 
