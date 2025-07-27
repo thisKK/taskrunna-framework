@@ -1,0 +1,49 @@
+title: TaskRunna Framework
+description: Lightweight, single-package job orchestration framework for asynchronous task execution
+baseurl: ""
+url: "https://thisKK.github.io/taskrunna-framework"
+
+# Theme
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Navigation
+header_pages:
+  - getting-started.md
+  - examples.md
+  - metrics.md
+  - api-reference.md
+
+# GitHub
+github_username: thisKK
+repository: taskrunna-framework
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+  input: GFM
+
+# Include/Exclude
+include:
+  - _pages
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+
+# SEO
+google_analytics: # Add your GA ID here if needed
+twitter:
+  username: # Add your Twitter if needed
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default" 
