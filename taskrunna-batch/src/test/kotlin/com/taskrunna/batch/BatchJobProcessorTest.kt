@@ -50,7 +50,6 @@ class BatchJobProcessorTest {
     @Test
     fun `should process all items and call onSuccess`() {
         val iterator = FakeBatchIterator()
-        val executor = Executors.newSingleThreadExecutor()
         val logger = mockk<KLogger>(relaxed = true)
         val submitJob = mockk<(String) -> SettableFuture<String>>()
         val onSuccess = mockk<(String, String?) -> Unit>(relaxed = true)
@@ -79,7 +78,6 @@ class BatchJobProcessorTest {
     @Test
     fun `should call onFailure when submitJob fails`() {
         val iterator = FakeBatchIterator()
-        val executor = Executors.newSingleThreadExecutor()
         val logger = mockk<KLogger>(relaxed = true)
         val submitJob = mockk<(String) -> SettableFuture<String>>()
         val onSuccess = mockk<(String, String?) -> Unit>(relaxed = true)
