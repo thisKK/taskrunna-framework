@@ -11,101 +11,10 @@
     
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-      line-height: 1.7;
+      line-height: 1.6;
       color: #2d3748;
       margin: 0;
       padding: 0;
-      font-size: 16px;
-      font-weight: 400;
-    }
-
-    /* Improved typography */
-    p {
-      margin: 1.2em 0;
-      line-height: 1.8;
-      color: #4a5568;
-      font-size: 1rem;
-    }
-
-    /* Better list styling */
-    ul, ol {
-      margin: 1.5em 0;
-      padding-left: 2em;
-    }
-
-    li {
-      margin: 0.8em 0;
-      line-height: 1.7;
-      color: #4a5568;
-    }
-
-    /* Enhanced blockquote styling */
-    blockquote {
-      border-left: 4px solid #667eea;
-      background: #f8f9ff;
-      margin: 2em 0;
-      padding: 1.5em 2em;
-      border-radius: 8px;
-    }
-
-    blockquote p {
-      margin: 0;
-      color: #2d3748;
-      font-style: italic;
-    }
-
-    /* Better table styling */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2em 0;
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    th, td {
-      padding: 1em 1.5em;
-      text-align: left;
-      border-bottom: 1px solid #e2e8f0;
-    }
-
-    th {
-      background: #f7fafc;
-      font-weight: 600;
-      color: #2d3748;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    td {
-      color: #4a5568;
-      line-height: 1.6;
-    }
-
-    tr:hover {
-      background: #f8f9ff;
-    }
-
-    /* Strong text styling */
-    strong {
-      font-weight: 600;
-      color: #2d3748;
-    }
-
-    /* Link styling */
-    a {
-      color: #667eea;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    a:hover {
-      color: #4c51bf;
-      text-decoration: underline;
     }
 
     /* Hide the default header to avoid conflicts */
@@ -146,81 +55,9 @@
 
     /* Main content wrapper */
     .wrapper {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 40px;
-    }
-
-    /* Content sections */
-    .content-section {
-      margin: 4em 0;
-    }
-
-    /* Introduction text styling */
-    .intro-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #4a5568;
-      margin: 2em 0;
-      padding: 2em 0;
-      border-bottom: 1px solid #e2e8f0;
-    }
-
-    /* Section dividers */
-    hr {
-      border: none;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
-      margin: 4em 0;
-    }
-
-    /* Details and summary styling */
-    details {
-      background: #f8f9ff;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 1.5em;
-      margin: 2em 0;
-    }
-
-    summary {
-      font-weight: 600;
-      color: #2d3748;
-      cursor: pointer;
-      margin-bottom: 1em;
-      padding: 0.5em;
-      border-radius: 4px;
-      transition: background 0.2s ease;
-    }
-
-    summary:hover {
-      background: #edf2f7;
-    }
-
-    /* Alert boxes */
-    .alert {
-      padding: 1.5em;
-      border-radius: 8px;
-      margin: 2em 0;
-      border-left: 4px solid;
-    }
-
-    .alert-info {
-      background: #ebf8ff;
-      border-color: #3182ce;
-      color: #2a69ac;
-    }
-
-    .alert-warning {
-      background: #fffaf0;
-      border-color: #ed8936;
-      color: #c05621;
-    }
-
-    .alert-success {
-      background: #f0fff4;
-      border-color: #38a169;
-      color: #2f855a;
     }
 
     /* Badges */
@@ -238,69 +75,20 @@
       display: inline-block;
     }
 
-    /* Enhanced heading typography */
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #1a202c;
-      margin: 2em 0 1em 0;
-      line-height: 1.3;
-      letter-spacing: -0.5px;
-    }
-
+    /* Section headers */
     h2 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       color: #1a202c;
-      margin: 3em 0 1.5em 0;
-      line-height: 1.4;
-      letter-spacing: -0.3px;
-      position: relative;
-      padding-bottom: 0.5em;
-    }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      border-radius: 2px;
-    }
-
-    .wrapper h2 {
-      text-align: left;
-    }
-
-    .wrapper h2:first-of-type {
-      margin-top: 2em;
+      margin: 60px 0 40px 0;
+      text-align: center;
     }
 
     h3 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: #2d3748;
-      margin: 2.5em 0 1em 0;
-      line-height: 1.4;
-      letter-spacing: -0.2px;
-    }
-
-    h4 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #2d3748;
-      margin: 2em 0 0.8em 0;
-      line-height: 1.5;
-    }
-
-    h5 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #4a5568;
-      margin: 1.5em 0 0.5em 0;
-      line-height: 1.5;
+      margin: 30px 0 15px 0;
     }
 
     /* Features grid */
@@ -594,38 +382,18 @@
     @media (max-width: 768px) {
       .wrapper {
         padding: 0 20px;
-        max-width: 100%;
       }
       
       .hero {
-        padding: 40px 20px;
+        padding: 60px 20px;
       }
       
       .hero h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
       }
       
       .hero p {
-        font-size: 1rem;
-      }
-      
-      h1 {
-        font-size: 2rem;
-      }
-
-      h2 {
-        font-size: 1.6rem;
-        margin: 2em 0 1em 0;
-      }
-
-      h3 {
-        font-size: 1.3rem;
-        margin: 2em 0 0.8em 0;
-      }
-
-      p {
-        font-size: 0.95rem;
-        line-height: 1.7;
+        font-size: 1.1rem;
       }
       
       .features {
@@ -638,59 +406,7 @@
       }
       
       .quick-start {
-        padding: 20px 15px;
-        margin: 30px 0;
-      }
-
-      .feature-item {
-        padding: 20px;
-      }
-
-      .docs-card {
-        padding: 25px;
-      }
-
-      table {
-        font-size: 0.9rem;
-      }
-
-      th, td {
-        padding: 0.8em 1em;
-      }
-
-      .alert {
-        padding: 1em;
-        margin: 1.5em 0;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .wrapper {
-        padding: 0 15px;
-      }
-
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      h2 {
-        font-size: 1.4rem;
-      }
-
-      h3 {
-        font-size: 1.2rem;
-      }
-
-      .quick-start {
-        padding: 15px 10px;
-      }
-
-      .feature-item {
-        padding: 15px;
+        padding: 30px 20px;
       }
     }
 
