@@ -33,7 +33,7 @@
     .hero {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      padding: 80px 40px;
+      padding: 80px 80px;
       text-align: center;
       margin-bottom: 60px;
     }
@@ -57,7 +57,7 @@
     .wrapper {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 80px;
     }
 
     /* Badges */
@@ -379,13 +379,24 @@
     }
 
     /* Responsive design */
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .wrapper {
-        padding: 0 20px;
+        padding: 0 60px;
       }
       
       .hero {
-        padding: 60px 20px;
+        padding: 80px 60px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .wrapper {
+        padding: 0 40px;
+        max-width: 100%;
+      }
+      
+      .hero {
+        padding: 40px 40px;
       }
       
       .hero h1 {
@@ -406,7 +417,63 @@
       }
       
       .quick-start {
-        padding: 30px 20px;
+        padding: 20px 15px;
+        margin: 30px 0;
+      }
+
+      .feature-item {
+        padding: 20px;
+      }
+
+      .docs-card {
+        padding: 25px;
+      }
+
+      table {
+        font-size: 0.9rem;
+      }
+
+      th, td {
+        padding: 0.8em 1em;
+      }
+
+      .alert {
+        padding: 1em;
+        margin: 1.5em 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrapper {
+        padding: 0 25px;
+      }
+      
+      .hero {
+        padding: 40px 25px;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      .quick-start {
+        padding: 15px 10px;
+      }
+
+      .feature-item {
+        padding: 15px;
       }
     }
 
