@@ -1,5 +1,10 @@
 # TaskRunna Framework 🏃‍♂️
 
+[![GitHub release](https://img.shields.io/github/v/release/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/releases)
+[![GitHub](https://img.shields.io/github/license/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/thisKK/taskrunna-framework)](https://github.com/thisKK/taskrunna-framework/issues)
+
 A **lightweight, single-package** job orchestration framework for asynchronous task execution in microservices. Process batches efficiently with built-in **Prometheus metrics**, error handling, and pagination support.
 
 ## ✨ Why TaskRunna?
