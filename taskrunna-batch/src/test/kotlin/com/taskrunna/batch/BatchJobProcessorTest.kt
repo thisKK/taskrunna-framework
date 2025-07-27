@@ -10,7 +10,6 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.Test
-import java.util.concurrent.Executors
 
 class BatchJobProcessorTest {
     @Test
@@ -22,11 +21,11 @@ class BatchJobProcessorTest {
 
             override fun loadNextBatch(afterCursor: String, batchSize: Int): Collection<String> {
                 if (currentIndex >= data.size) return emptyList()
-                
+
                 val endIndex = minOf(currentIndex + batchSize, data.size)
                 val batch = data.subList(currentIndex, endIndex)
                 currentIndex = endIndex
-                
+
                 return batch
             }
 
@@ -133,4 +132,4 @@ class BatchJobProcessorTest {
         // Just ensure no jobs were submitted
         verify(exactly = 0) { submitJob(any()) }
     }
-} 
+}

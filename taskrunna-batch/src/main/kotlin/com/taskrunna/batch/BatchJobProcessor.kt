@@ -55,7 +55,7 @@ class BatchJobProcessor<T, R>(
 
     private val executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1)
     private val batchJobStats = BatchJobStats()
-    
+
     fun run() {
         logger.info { "[BatchJob] Starting..." }
 
@@ -94,4 +94,4 @@ class BatchJobProcessor<T, R>(
         batchJobStats.awaitProcessingAndTerminate()
         logger.info { "[BatchJob] All jobs submitted. Job completed." }
     }
-} 
+}

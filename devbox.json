@@ -11,29 +11,41 @@
       "echo 'Gradle version:' && gradle --version | head -n 3",
       "echo 'Kotlin version:' && kotlin -version"
     ],
-    "scripts": {
-      "build": [
-        "echo 'Building TaskRunna Framework...'",
-        "gradle build"
-      ],
-      "test": [
-        "echo 'Running tests...'",
-        "gradle test"
-      ],
-      "example": [
-        "echo 'Running example...'",
-        "gradle :taskrunna-examples:run"
-      ],
-      "clean": [
-        "echo 'Cleaning build artifacts...'",
-        "gradle clean"
-      ],
-      "setup": [
-        "echo 'Setting up project...'",
-        "gradle wrapper --gradle-version 8.4",
-        "echo 'Project setup complete! 🎉'"
-      ]
-    }
+          "scripts": {
+        "build": [
+          "echo 'Building TaskRunna Framework...'",
+          "gradle build"
+        ],
+        "test": [
+          "echo 'Running tests...'",
+          "gradle test"
+        ],
+        "example": [
+          "echo 'Running example...'",
+          "gradle :taskrunna-examples:run"
+        ],
+        "clean": [
+          "echo 'Cleaning build artifacts...'",
+          "gradle clean"
+        ],
+        "setup": [
+          "echo 'Setting up project...'",
+          "gradle wrapper --gradle-version 8.4",
+          "echo 'Project setup complete! 🎉'"
+        ],
+        "lint": [
+          "echo 'Running ktlint...'",
+          "gradle ktlintCheck"
+        ],
+        "format": [
+          "echo 'Formatting code with ktlint...'",
+          "gradle ktlintFormat"
+        ],
+        "check": [
+          "echo 'Running full code quality checks...'",
+          "gradle ktlintCheck test"
+        ]
+      }
   },
   "env": {
     "JAVA_HOME": "$DEVBOX_PACKAGES_DIR/openjdk@17",

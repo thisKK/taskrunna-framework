@@ -79,6 +79,10 @@ devbox shell
 # Setup and build
 devbox run setup
 devbox run build
+
+# Code quality (optional)
+devbox run format  # Auto-format code
+devbox run check   # Lint + test
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for complete development guidelines and build instructions. 

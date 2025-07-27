@@ -23,6 +23,9 @@ devbox run setup
 | `devbox run example` | Run the example application |
 | `devbox run clean` | Clean build artifacts |
 | `devbox run setup` | Initial project setup |
+| `devbox run lint` | Check code style with ktlint |
+| `devbox run format` | Auto-format code with ktlint |
+| `devbox run check` | Run linting + tests (full quality check) |
 
 ## Environment Details
 

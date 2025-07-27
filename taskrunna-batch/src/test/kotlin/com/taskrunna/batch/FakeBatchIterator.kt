@@ -14,4 +14,4 @@ class FakeBatchIterator : BaseBatchIterator<String>() {
     }
 
     override fun extractCursorFrom(item: String): String = item
-} 
+}

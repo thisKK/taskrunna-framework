@@ -28,4 +28,4 @@ abstract class BaseBatchIterator<T>(
         val durationSec = (System.currentTimeMillis() - batchStartTime) / 1000.0
         println("$logPrefix #$batchNumber - ${records.size} records in $durationSec sec.")
     }
-} 
+}

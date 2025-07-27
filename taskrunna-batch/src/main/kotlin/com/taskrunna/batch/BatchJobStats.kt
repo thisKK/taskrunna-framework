@@ -103,4 +103,4 @@ fun Long.toSeconds(): String =
     ((this) / 1000.0)
         .toBigDecimal()
         .setScale(2, RoundingMode.HALF_UP)
-        .toPlainString() 
+        .toPlainString()

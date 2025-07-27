@@ -14,18 +14,18 @@ data class Task(val id: String, val data: String)
 // Example iterator implementation
 class SimpleTaskIterator(
     private val tasks: List<Task>,
-    batchSize: Int = 10
+    batchSize: Int = 10,
 ) : BaseBatchIterator<Task>(batchSize) {
-    
+
     private var currentIndex = 0
 
     override fun loadNextBatch(afterCursor: String, batchSize: Int): Collection<Task> {
         if (currentIndex >= tasks.size) return emptyList()
-        
+
         val endIndex = minOf(currentIndex + batchSize, tasks.size)
         val batch = tasks.subList(currentIndex, endIndex)
         currentIndex = endIndex
-        
+
         return batch
     }
 
@@ -36,7 +36,7 @@ class SimpleTaskIterator(
 fun main() {
     // Sample data
     val tasks = (1..25).map { Task(id = "task-$it", data = "data-$it") }
-    
+
     // Create processor
     val processor = BatchJobProcessor(
         iterator = SimpleTaskIterator(tasks, batchSize = 5),
@@ -50,9 +50,9 @@ fun main() {
         onFailure = { task, error ->
             logger.error(error) { "Failed to process task ${task.id}" }
         },
-        logger = logger
+        logger = logger,
     )
-    
+
     // Run the batch job
     processor.run()
 }
@@ -60,4 +60,4 @@ fun main() {
 // Simulate async task processing
 private fun processTaskAsync(task: Task): ListenableFuture<String> {
     return Futures.immediateFuture("processed-${task.id}")
-} 
+}

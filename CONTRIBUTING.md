@@ -47,10 +47,22 @@ Requirements:
 - `devbox run example` - Run example application
 - `devbox run clean` - Clean build artifacts
 - `devbox run setup` - Initial project setup
+- `devbox run lint` - Check code style with ktlint
+- `devbox run format` - Auto-format code with ktlint
+- `devbox run check` - Run linting + tests (full quality check)
 
 ## Development Guidelines
 
-- Follow Kotlin coding conventions
-- Add comprehensive KDoc comments
-- Include unit tests for new functionality
-- Update examples when adding new features 
+- **Code Style**: Follow Kotlin coding conventions enforced by ktlint
+- **Formatting**: Run `devbox run format` to auto-format your code
+- **Quality**: Run `devbox run check` before committing to ensure code quality
+- **Documentation**: Add comprehensive KDoc comments for public APIs
+- **Testing**: Include unit tests for new functionality
+- **Examples**: Update examples when adding new features
+
+### Code Quality Workflow
+
+1. Write your code
+2. Run `devbox run format` to format it
+3. Run `devbox run check` to verify style and tests
+4. Commit your changes 
