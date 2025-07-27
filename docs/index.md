@@ -63,36 +63,36 @@ description: Lightweight, single-package job orchestration framework for asynchr
     <h2>🚀 Quick Start</h2>
     
     <h3>Installation</h3>
-    
-    ```kotlin
-    dependencies {
-        implementation("com.taskrunna:taskrunna:1.1.0")
-    }
-    ```
+
+{% highlight kotlin %}
+dependencies {
+    implementation("com.taskrunna:taskrunna:1.1.0")
+}
+{% endhighlight %}
     
     <h3>Basic Usage</h3>
+
+{% highlight kotlin %}
+import com.taskrunna.batch.*
+
+// 1. Define your data iterator
+class OrderIterator : BaseBatchIterator<Order>() {
+    override fun loadNextBatch(cursor: String, size: Int) = 
+        orderRepository.findPendingOrders(cursor, size)
     
-    ```kotlin
-    import com.taskrunna.batch.*
-    
-    // 1. Define your data iterator
-    class OrderIterator : BaseBatchIterator<Order>() {
-        override fun loadNextBatch(cursor: String, size: Int) = 
-            orderRepository.findPendingOrders(cursor, size)
-        
-        override fun extractCursorFrom(order: Order) = order.id
-    }
-    
-    // 2. Process with async jobs
-    val processor = BatchJobProcessor(
-        iterator = OrderIterator(),
-        submitJob = { order -> sendToKafka(order) },
-        onSuccess = { order, result -> markProcessed(order.id) },
-        onFailure = { order, error -> handleError(order, error) }
-    )
-    
-    processor.run() // Processes all orders asynchronously!
-    ```
+    override fun extractCursorFrom(order: Order) = order.id
+}
+
+// 2. Process with async jobs
+val processor = BatchJobProcessor(
+    iterator = OrderIterator(),
+    submitJob = { order -> sendToKafka(order) },
+    onSuccess = { order, result -> markProcessed(order.id) },
+    onFailure = { order, error -> handleError(order, error) }
+)
+
+processor.run() // Processes all orders asynchronously!
+{% endhighlight %}
   </div>
 
   <div class="version-highlight">
