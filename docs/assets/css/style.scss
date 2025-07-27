@@ -2,11 +2,25 @@
 
 /* TaskRunna Custom Styles */
 
+/* Main content wrapper */
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Content sections */
+.main-content {
+  padding: 0 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /* Hero Section */
 .hero {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 60px 20px;
+  padding: 80px 40px;
   text-align: center;
   margin: -20px -20px 40px -20px;
   border-radius: 0 0 15px 15px;
@@ -165,7 +179,26 @@ pre, code {
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .wrapper, .main-content {
+    padding: 0 30px;
+  }
+
+  .hero {
+    padding: 80px 30px;
+  }
+}
+
 @media (max-width: 768px) {
+  .wrapper, .main-content {
+    padding: 0 25px;
+    max-width: 100%;
+  }
+
+  .hero {
+    padding: 40px 25px;
+  }
+
   .hero h1 {
     font-size: 2rem;
   }
@@ -180,6 +213,45 @@ pre, code {
   
   .features {
     grid-template-columns: 1fr;
+  }
+
+  .quick-start {
+    padding: 20px 15px;
+    margin: 30px 0;
+  }
+
+  .feature-item {
+    padding: 15px;
+  }
+
+  .docs-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper, .main-content {
+    padding: 0 20px;
+  }
+
+  .hero {
+    padding: 40px 20px;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .quick-start {
+    padding: 15px 10px;
+  }
+
+  .feature-item {
+    padding: 12px;
+  }
+
+  .docs-card {
+    padding: 15px;
   }
 }
 
