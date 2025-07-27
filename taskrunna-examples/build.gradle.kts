@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass.set("com.taskrunna.examples.SimpleExampleKt")
+    mainClass.set("com.taskrunna.examples.PrometheusMetricsExampleKt")
 }
 
 dependencies {
