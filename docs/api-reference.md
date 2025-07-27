@@ -4,9 +4,15 @@ title: API Reference
 permalink: /api-reference/
 ---
 
-# 📖 API Reference
+<div class="hero">
+  <h1>📖 API Reference</h1>
+  <p>Complete reference for all TaskRunna classes and interfaces</p>
+</div>
 
-Complete reference for all TaskRunna classes and interfaces.
+<div class="wrapper">
+  <div class="intro-text">
+    Comprehensive documentation for all TaskRunna framework components, including detailed parameter descriptions, method signatures, and usage examples.
+  </div>
 
 ## Core Classes
 
@@ -14,17 +20,17 @@ Complete reference for all TaskRunna classes and interfaces.
 
 The main entry point for batch processing jobs.
 
-```kotlin
-class BatchJobProcessor<T>(
-    iterator: BaseBatchIterator<T>,
-    submitJob: (T) -> ListenableFuture<*>,
-    onSuccess: (T, Any) -> Unit = { _, _ -> },
-    onFailure: (T, Throwable) -> Unit = { _, _ -> },
+<div class="highlight">
+<pre><code class="language-kotlin">class BatchJobProcessor&lt;T&gt;(
+    iterator: BaseBatchIterator&lt;T&gt;,
+    submitJob: (T) -&gt; ListenableFuture&lt;*&gt;,
+    onSuccess: (T, Any) -&gt; Unit = { _, _ -&gt; },
+    onFailure: (T, Throwable) -&gt; Unit = { _, _ -&gt; },
     logger: KLogger,
     metrics: BatchMetrics = NoOpBatchMetrics.INSTANCE,
     jobName: String = "batch_job"
-)
-```
+)</code></pre>
+</div>
 
 #### Parameters
 
@@ -44,9 +50,9 @@ class BatchJobProcessor<T>(
 
 Executes the batch job, processing all available items.
 
-```kotlin
-processor.run()
-```
+<div class="highlight">
+<pre><code class="language-kotlin">processor.run()</code></pre>
+</div>
 
 **Behavior:**
 - Loads data in batches using the iterator
@@ -452,4 +458,5 @@ All functionality remains the same - just import paths changed.
 
 ---
 
-Need more details? [Check the source code](https://github.com/thisKK/taskrunna-framework) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues)! 
+Need more details? [Check the source code](https://github.com/thisKK/taskrunna-framework) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues)!
+</div> 

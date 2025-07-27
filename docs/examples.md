@@ -4,9 +4,15 @@ title: Examples
 permalink: /examples/
 ---
 
-# 💡 TaskRunna Examples
+<div class="hero">
+  <h1>💡 TaskRunna Examples</h1>
+  <p>Real-world examples showing how to use TaskRunna in different scenarios</p>
+</div>
 
-Real-world examples showing how to use TaskRunna in different scenarios.
+<div class="wrapper">
+  <div class="intro-text">
+    Explore practical implementations of TaskRunna across various use cases, from e-commerce order processing to data pipeline automation.
+  </div>
 
 ## 🚀 Live Example: Order Retry System
 
@@ -14,14 +20,14 @@ TaskRunna includes a complete working example that demonstrates Prometheus metri
 
 ### Run the Example
 
-```bash
-git clone https://github.com/thisKK/taskrunna-framework.git
+<div class="highlight">
+<pre><code class="language-bash">git clone https://github.com/thisKK/taskrunna-framework.git
 cd taskrunna-framework
 ./gradlew :taskrunna-examples:run
 
 # Visit http://localhost:8080 for web interface
-# Visit http://localhost:8080/metrics for Prometheus metrics
-```
+# Visit http://localhost:8080/metrics for Prometheus metrics</code></pre>
+</div>
 
 The example simulates an order retry system processing 50 orders with realistic success/failure patterns.
 
@@ -426,4 +432,5 @@ class BatchJobIntegrationTest {
 }
 ```
 
-Need more examples? [Check the source code](https://github.com/thisKK/taskrunna-framework/tree/main/taskrunna-examples) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues) with your use case! 
+Need more examples? [Check the source code](https://github.com/thisKK/taskrunna-framework/tree/main/taskrunna-examples) or [open an issue](https://github.com/thisKK/taskrunna-framework/issues) with your use case!
+</div> 
